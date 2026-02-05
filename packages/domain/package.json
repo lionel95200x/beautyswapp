@@ -2,11 +2,35 @@
   "name": "@beautyswapp/domain",
   "version": "1.0.0",
   "private": true,
-  "main": "./src/index.ts",
-  "types": "./src/index.ts",
+  "exports": {
+    "./schema": "./src/schema.ts",
+    "./types": "./src/types.ts",
+    "./db": "./src/db.ts",
+    "./services/*": "./src/services/*.ts",
+    "./repository/*": "./src/repository/*.ts",
+    "./hooks/*": "./src/hooks/*.ts"
+  },
   "scripts": {
     "build": "echo 'Build script not configured yet'",
     "lint": "echo 'Lint script not configured yet'",
-    "test": "echo 'Test script not configured yet'"
+    "test": "echo 'Test script not configured yet'",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:studio": "drizzle-kit studio"
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.45.1"
+  },
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.0.0",
+    "react": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "drizzle-kit": "^0.31.8",
+    "postgres": "^3.4.6",
+    "react": "^19.2.0",
+    "typescript": "^5.7.3"
   }
 }
