@@ -7,9 +7,6 @@ export interface UseProductsOptions {
   };
 }
 
-/**
- * Hook pour récupérer la liste des produits avec filtres optionnels
- */
 export function useProducts(options?: UseProductsOptions) {
   const params = new URLSearchParams();
 
