@@ -1,6 +1,17 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { useProducts } from '@beautyswapp/domain/hooks/useProducts';
 import { Package, Loader2, Plus } from 'lucide-react';
+import { Card } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table';
 
 export const Route = createFileRoute('/products/')({
   component: ProductsPage,
@@ -11,117 +22,96 @@ function ProductsPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-slate-400" />
+      <div className="flex items-center justify-center min-h-[400px]">
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="min-h-screen bg-slate-50 flex items-center justify-center">
+      <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
-          <p className="text-red-600 font-medium">Erreur de chargement</p>
-          <p className="text-sm text-slate-500 mt-2">{error.message}</p>
+          <p className="text-destructive font-medium">Erreur de chargement</p>
+          <p className="text-sm text-muted-foreground mt-2">{error.message}</p>
         </div>
       </div>
     );
   }
 
+  if (!products) {
+    return null;
+  }
+
   return (
-    <div className="min-h-screen bg-slate-50 p-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="mb-8 flex items-center justify-between">
+    <div className="container mx-auto py-10">
+      <div className="mb-8">
+        <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-slate-900 mb-2">Produits</h1>
-            <p className="text-slate-600">
+            <h1 className="text-3xl font-bold">Produits</h1>
+            <p className="text-muted-foreground mt-2">
               Liste des produits publiés sur BeautySwapp
             </p>
           </div>
-          <Link
-            to="/products/create"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-          >
-            <Plus className="h-5 w-5" />
-            Créer un produit
-          </Link>
-        </div>
-
-        <div className="bg-white rounded-lg shadow">
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead className="bg-slate-50 border-b border-slate-200">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
-                    Produit
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
-                    Marque
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
-                    Catégorie
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
-                    Condition
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
-                    Prix
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-slate-500 uppercase tracking-wider">
-                    Statut
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-slate-200">
-                {products.length === 0 ? (
-                  <tr>
-                    <td colSpan={6} className="px-6 py-12 text-center">
-                      <Package className="mx-auto h-12 w-12 text-slate-400" />
-                      <p className="mt-2 text-sm text-slate-500">
-                        Aucun produit publié
-                      </p>
-                    </td>
-                  </tr>
-                ) : (
-                  products.map((product) => (
-                    <tr key={product.id} className="hover:bg-slate-50">
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm font-medium text-slate-900">
-                          {product.title}
-                        </div>
-                        {product.description && (
-                          <div className="text-sm text-slate-500 truncate max-w-xs">
-                            {product.description}
-                          </div>
-                        )}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
-                        {product.brand}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-500">
-                        {product.category}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                          {product.condition}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-900 font-medium">
-                        {product.price && `${product.price} €`}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                          {product.status}
-                        </span>
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
+          <Button asChild>
+            <Link to="/products/create">
+              <Plus className="h-4 w-4 mr-2" />
+              Créer
+            </Link>
+          </Button>
         </div>
       </div>
+
+      <Card>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Produit</TableHead>
+              <TableHead>Marque</TableHead>
+              <TableHead>Catégorie</TableHead>
+              <TableHead>Condition</TableHead>
+              <TableHead>Prix</TableHead>
+              <TableHead>Statut</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {products.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={6} className="text-center py-12">
+                  <Package className="mx-auto h-12 w-12 text-muted-foreground" />
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Aucun produit publié
+                  </p>
+                </TableCell>
+              </TableRow>
+            ) : (
+              products.map((product) => (
+                <TableRow key={product.id}>
+                  <TableCell>
+                    <div className="font-medium">{product.title}</div>
+                    {product.description && (
+                      <div className="text-sm text-muted-foreground truncate max-w-xs">
+                        {product.description}
+                      </div>
+                    )}
+                  </TableCell>
+                  <TableCell>{product.brand}</TableCell>
+                  <TableCell>{product.category}</TableCell>
+                  <TableCell>
+                    <Badge variant="secondary">{product.condition}</Badge>
+                  </TableCell>
+                  <TableCell className="font-medium">
+                    {product.price && `${product.price} €`}
+                  </TableCell>
+                  <TableCell>
+                    <Badge>{product.status}</Badge>
+                  </TableCell>
+                </TableRow>
+              ))
+            )}
+          </TableBody>
+        </Table>
+      </Card>
     </div>
   );
 }

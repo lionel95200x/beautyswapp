@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductsIndexRouteImport } from './routes/products/index'
 import { Route as ProductsCreateRouteImport } from './routes/products/create'
+import { Route as AuthCallbackRouteImport } from './routes/auth/callback'
+import { Route as ApiProfilesRouteImport } from './routes/api/profiles'
 import { Route as ApiProductsRouteImport } from './routes/api/products'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request'
@@ -34,6 +36,16 @@ const ProductsIndexRoute = ProductsIndexRouteImport.update({
 const ProductsCreateRoute = ProductsCreateRouteImport.update({
   id: '/products/create',
   path: '/products/create',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
+  id: '/auth/callback',
+  path: '/auth/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiProfilesRoute = ApiProfilesRouteImport.update({
+  id: '/api/profiles',
+  path: '/api/profiles',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiProductsRoute = ApiProductsRouteImport.update({
@@ -80,6 +92,8 @@ const DemoStartSsrDataOnlyRoute = DemoStartSsrDataOnlyRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/api/products': typeof ApiProductsRoute
+  '/api/profiles': typeof ApiProfilesRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/products/create': typeof ProductsCreateRoute
   '/products/': typeof ProductsIndexRoute
   '/demo/api/names': typeof DemoApiNamesRoute
@@ -93,6 +107,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api/products': typeof ApiProductsRoute
+  '/api/profiles': typeof ApiProfilesRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/products/create': typeof ProductsCreateRoute
   '/products': typeof ProductsIndexRoute
   '/demo/api/names': typeof DemoApiNamesRoute
@@ -107,6 +123,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/api/products': typeof ApiProductsRoute
+  '/api/profiles': typeof ApiProfilesRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/products/create': typeof ProductsCreateRoute
   '/products/': typeof ProductsIndexRoute
   '/demo/api/names': typeof DemoApiNamesRoute
@@ -122,6 +140,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/api/products'
+    | '/api/profiles'
+    | '/auth/callback'
     | '/products/create'
     | '/products/'
     | '/demo/api/names'
@@ -135,6 +155,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/api/products'
+    | '/api/profiles'
+    | '/auth/callback'
     | '/products/create'
     | '/products'
     | '/demo/api/names'
@@ -148,6 +170,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/api/products'
+    | '/api/profiles'
+    | '/auth/callback'
     | '/products/create'
     | '/products/'
     | '/demo/api/names'
@@ -162,6 +186,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApiProductsRoute: typeof ApiProductsRoute
+  ApiProfilesRoute: typeof ApiProfilesRoute
+  AuthCallbackRoute: typeof AuthCallbackRoute
   ProductsCreateRoute: typeof ProductsCreateRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
   DemoApiNamesRoute: typeof DemoApiNamesRoute
@@ -194,6 +220,20 @@ declare module '@tanstack/react-router' {
       path: '/products/create'
       fullPath: '/products/create'
       preLoaderRoute: typeof ProductsCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth/callback': {
+      id: '/auth/callback'
+      path: '/auth/callback'
+      fullPath: '/auth/callback'
+      preLoaderRoute: typeof AuthCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/profiles': {
+      id: '/api/profiles'
+      path: '/api/profiles'
+      fullPath: '/api/profiles'
+      preLoaderRoute: typeof ApiProfilesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/products': {
@@ -258,6 +298,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApiProductsRoute: ApiProductsRoute,
+  ApiProfilesRoute: ApiProfilesRoute,
+  AuthCallbackRoute: AuthCallbackRoute,
   ProductsCreateRoute: ProductsCreateRoute,
   ProductsIndexRoute: ProductsIndexRoute,
   DemoApiNamesRoute: DemoApiNamesRoute,

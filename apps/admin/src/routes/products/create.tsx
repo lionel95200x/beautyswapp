@@ -1,49 +1,41 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { useCreateProduct } from '@beautyswapp/domain/hooks/useCreateProduct';
+import { useProfiles } from '@beautyswapp/domain/hooks/useProfiles';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import type { NewProduct } from '@beautyswapp/domain/types';
+import { Loader2 } from 'lucide-react';
+import type { NewProduct, ProductCondition } from '@beautyswapp/domain/types';
+import { productCondition } from '@beautyswapp/domain/schema';
 
 export const Route = createFileRoute('/products/create')({
   component: CreateProductPage,
 });
 
-const createProductSchema = z.object({
-  sellerId: z.string().uuid('ID vendeur invalide'),
-  brand: z.string().min(1, 'Marque requise'),
-  title: z.string().min(1, 'Titre requis'),
-  price: z.string().regex(/^\d+(\.\d{1,2})?$/, 'Prix invalide'),
-  condition: z.enum(['sealed_new', 'unsealed_new', 'swatched', 'used_very_little']),
-});
-
-type CreateProductForm = z.infer<typeof createProductSchema>;
+const conditionLabels: Record<ProductCondition, string> = {
+  sealed_new: 'Scellé - Neuf',
+  unsealed_new: 'Non scellé - Neuf',
+  swatched: 'Swatché',
+  used_very_little: 'Utilisé - très peu',
+};
 
 function CreateProductPage() {
   const navigate = useNavigate();
   const createProduct = useCreateProduct();
+  const { data: profiles, isLoading: profilesLoading } = useProfiles();
 
-  const { register, handleSubmit, formState: { errors }, setValue } = useForm<CreateProductForm>({
-    resolver: zodResolver(createProductSchema),
+  const { register, handleSubmit, setValue } = useForm<NewProduct>({
+    defaultValues: {
+      sellerCommitmentAccepted: false,
+    },
   });
 
-  const onSubmit = async (data: CreateProductForm) => {
+  const onSubmit = async (data: NewProduct) => {
     try {
-      const product: NewProduct = {
-        sellerId: data.sellerId,
-        brand: data.brand,
-        title: data.title,
-        price: data.price,
-        condition: data.condition,
-        sellerCommitmentAccepted: false,
-      };
-
-      await createProduct.mutateAsync({ product });
+      await createProduct.mutateAsync({ product: data });
       toast.success('Produit créé');
       navigate({ to: '/products' });
     } catch (error) {
@@ -59,71 +51,63 @@ function CreateProductPage() {
           <p className="text-muted-foreground">Formulaire de test</p>
         </div>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="bg-card rounded-lg border p-6 space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="bg-card rounded-lg border p-6 space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="sellerId">Seller ID *</Label>
-            <Input
-              id="sellerId"
-              placeholder="00000000-0000-0000-0000-000000000000"
-              {...register('sellerId')}
-            />
-            {errors.sellerId && (
-              <p className="text-sm text-destructive">{errors.sellerId.message}</p>
+            <Label htmlFor="sellerId">Vendeur *</Label>
+            {profilesLoading ? (
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <Loader2 className="h-4 w-4 animate-spin" />
+                <span className="text-sm">Chargement...</span>
+              </div>
+            ) : profiles && profiles.length > 0 ? (
+              <Select onValueChange={(value) => setValue('sellerId', value)}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Sélectionner un vendeur" />
+                </SelectTrigger>
+                <SelectContent>
+                  {profiles.map((profile) => (
+                    <SelectItem key={profile.id} value={profile.id}>
+                      {profile.id}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            ) : (
+              <div className="px-3 py-2 text-sm text-muted-foreground border rounded-md bg-muted">
+                Aucun profile disponible
+              </div>
             )}
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="brand">Marque *</Label>
-            <Input
-              id="brand"
-              placeholder="Dior"
-              {...register('brand')}
-            />
-            {errors.brand && (
-              <p className="text-sm text-destructive">{errors.brand.message}</p>
-            )}
+            <Label htmlFor="brand">Marque</Label>
+            <Input id="brand" {...register('brand')} />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="title">Titre *</Label>
-            <Input
-              id="title"
-              placeholder="Rouge Dior 999"
-              {...register('title')}
-            />
-            {errors.title && (
-              <p className="text-sm text-destructive">{errors.title.message}</p>
-            )}
+            <Label htmlFor="title">Titre</Label>
+            <Input id="title" {...register('title')} />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="price">Prix *</Label>
-            <Input
-              id="price"
-              placeholder="25.00"
-              {...register('price')}
-            />
-            {errors.price && (
-              <p className="text-sm text-destructive">{errors.price.message}</p>
-            )}
+            <Label htmlFor="price">Prix</Label>
+            <Input id="price" placeholder="25.00" {...register('price')} />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="condition">Condition *</Label>
-            <Select onValueChange={(value) => setValue('condition', value as any)}>
+            <Label htmlFor="condition">Condition</Label>
+            <Select onValueChange={(value) => setValue('condition', value as ProductCondition)}>
               <SelectTrigger>
                 <SelectValue placeholder="Sélectionner" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="sealed_new">Scellé - Neuf</SelectItem>
-                <SelectItem value="unsealed_new">Non scellé - Neuf</SelectItem>
-                <SelectItem value="swatched">Swatché</SelectItem>
-                <SelectItem value="used_very_little">Utilisé - très peu</SelectItem>
+                {productCondition.enumValues.map((condition) => (
+                  <SelectItem key={condition} value={condition}>
+                    {conditionLabels[condition]}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
-            {errors.condition && (
-              <p className="text-sm text-destructive">{errors.condition.message}</p>
-            )}
           </div>
 
           <div className="flex gap-3 pt-4">

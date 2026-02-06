@@ -8,7 +8,8 @@
     "./db": "./src/db.ts",
     "./services/*": "./src/services/*.ts",
     "./repository/*": "./src/repository/*.ts",
-    "./hooks/*": "./src/hooks/*.ts"
+    "./hooks/*": "./src/hooks/*.ts",
+    "./contexts/*": "./src/contexts/*.tsx"
   },
   "scripts": {
     "build": "echo 'Build script not configured yet'",
@@ -23,6 +24,7 @@
     "drizzle-orm": "^0.45.1"
   },
   "peerDependencies": {
+    "@supabase/supabase-js": "^2.0.0",
     "@tanstack/react-query": "^5.0.0",
     "react": "^19.0.0"
   },
