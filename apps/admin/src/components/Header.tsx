@@ -32,27 +32,27 @@ export default function Header() {
               activeProps={{ className: 'text-primary font-semibold' }}
             >
               Produits
-              </Link>
-                <Link
-                to="/orders"
-                className="text-sm hover:text-primary transition-colors"
-                activeProps={{ className: 'text-primary font-semibold' }}
-              >
-                Produits
-              </Link>
-               <Link
-                to="/profiles"
-                className="text-sm hover:text-primary transition-colors"
-                activeProps={{ className: 'text-primary font-semibold' }}
-              >
-                Profiles
-              </Link>
+            </Link>
+            <Link
+              to="/orders"
+              className="text-sm hover:text-primary transition-colors"
+              activeProps={{ className: 'text-primary font-semibold' }}
+            >
+              Commande
+            </Link>
+            <Link
+              to="/profiles"
+              className="text-sm hover:text-primary transition-colors"
+              activeProps={{ className: 'text-primary font-semibold' }}
+            >
+              Profiles
+            </Link>
           </nav>
         </div>
 
         {isAuthenticated ? (
           <div className="flex items-center gap-3">
-            <span className="text-sm text-muted-foreground">{user?.email}</span>
+            <span className="text-sm text-muted-foreground">{user!.email}</span>
             <Button variant="outline" size="sm" onClick={handleSignOut}>
               <LogOut className="h-4 w-4 mr-2" />
               Déconnexion

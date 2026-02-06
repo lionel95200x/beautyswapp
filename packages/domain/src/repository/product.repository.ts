@@ -73,3 +73,16 @@ export async function update(id: string, data: UpdateProductData) {
 
   return results[0];
 }
+
+export async function markAsSold(id: string) {
+  const results = await db
+    .update(products)
+    .set({
+      status: 'sold',
+      updatedAt: new Date(),
+    })
+    .where(eq(products.id, id))
+    .returning();
+
+  return results[0];
+}

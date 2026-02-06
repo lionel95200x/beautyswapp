@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { PageLayout } from '@/components/ui/page-layout';
 import { LoadingState } from '@/components/ui/loading-state';
 import { ErrorState } from '@/components/ui/error-state';
+import { BuyButton } from '@/components/BuyButton';
 
 export const Route = createFileRoute('/products/$productId/')({
   component: ProductDetailPage,
@@ -41,12 +42,15 @@ function ProductDetailPage() {
             Retour aux produits
           </Link>
         </Button>
-        <Button asChild>
-          <Link to="/products/$productId/edit" params={{ productId }}>
-            <Edit className="h-4 w-4 mr-2" />
-            Modifier
-          </Link>
-        </Button>
+        <div className="flex gap-2">
+          <BuyButton productId={product.id} />
+          <Button asChild>
+            <Link to="/products/$productId/edit" params={{ productId }}>
+              <Edit className="h-4 w-4 mr-2" />
+              Modifier
+            </Link>
+          </Button>
+        </div>
       </div>
 
       <div className="space-y-6">

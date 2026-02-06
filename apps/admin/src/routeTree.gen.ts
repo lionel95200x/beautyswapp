@@ -25,8 +25,10 @@ import { Route as ProductsProductIdEditRouteImport } from './routes/products/$pr
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request'
 import { Route as DemoApiNamesRouteImport } from './routes/demo/api.names'
+import { Route as ApiWebhooksStripeRouteImport } from './routes/api/webhooks/stripe'
 import { Route as ApiProfilesProfileIdRouteImport } from './routes/api/profiles/$profileId'
 import { Route as ApiProductsProductIdRouteImport } from './routes/api/products/$productId'
+import { Route as ApiPaymentCreateIntentRouteImport } from './routes/api/payment/create-intent'
 import { Route as ApiOrdersOrderIdRouteImport } from './routes/api/orders/$orderId'
 import { Route as DemoStartSsrIndexRouteImport } from './routes/demo/start.ssr.index'
 import { Route as DemoStartSsrSpaModeRouteImport } from './routes/demo/start.ssr.spa-mode'
@@ -113,6 +115,11 @@ const DemoApiNamesRoute = DemoApiNamesRouteImport.update({
   path: '/demo/api/names',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiWebhooksStripeRoute = ApiWebhooksStripeRouteImport.update({
+  id: '/api/webhooks/stripe',
+  path: '/api/webhooks/stripe',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiProfilesProfileIdRoute = ApiProfilesProfileIdRouteImport.update({
   id: '/$profileId',
   path: '/$profileId',
@@ -122,6 +129,11 @@ const ApiProductsProductIdRoute = ApiProductsProductIdRouteImport.update({
   id: '/$productId',
   path: '/$productId',
   getParentRoute: () => ApiProductsRoute,
+} as any)
+const ApiPaymentCreateIntentRoute = ApiPaymentCreateIntentRouteImport.update({
+  id: '/api/payment/create-intent',
+  path: '/api/payment/create-intent',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const ApiOrdersOrderIdRoute = ApiOrdersOrderIdRouteImport.update({
   id: '/$orderId',
@@ -162,8 +174,10 @@ export interface FileRoutesByFullPath {
   '/products/': typeof ProductsIndexRoute
   '/profiles/': typeof ProfilesIndexRoute
   '/api/orders/$orderId': typeof ApiOrdersOrderIdRoute
+  '/api/payment/create-intent': typeof ApiPaymentCreateIntentRoute
   '/api/products/$productId': typeof ApiProductsProductIdRoute
   '/api/profiles/$profileId': typeof ApiProfilesProfileIdRoute
+  '/api/webhooks/stripe': typeof ApiWebhooksStripeRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
@@ -187,8 +201,10 @@ export interface FileRoutesByTo {
   '/products': typeof ProductsIndexRoute
   '/profiles': typeof ProfilesIndexRoute
   '/api/orders/$orderId': typeof ApiOrdersOrderIdRoute
+  '/api/payment/create-intent': typeof ApiPaymentCreateIntentRoute
   '/api/products/$productId': typeof ApiProductsProductIdRoute
   '/api/profiles/$profileId': typeof ApiProfilesProfileIdRoute
+  '/api/webhooks/stripe': typeof ApiWebhooksStripeRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
@@ -213,8 +229,10 @@ export interface FileRoutesById {
   '/products/': typeof ProductsIndexRoute
   '/profiles/': typeof ProfilesIndexRoute
   '/api/orders/$orderId': typeof ApiOrdersOrderIdRoute
+  '/api/payment/create-intent': typeof ApiPaymentCreateIntentRoute
   '/api/products/$productId': typeof ApiProductsProductIdRoute
   '/api/profiles/$profileId': typeof ApiProfilesProfileIdRoute
+  '/api/webhooks/stripe': typeof ApiWebhooksStripeRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
@@ -240,8 +258,10 @@ export interface FileRouteTypes {
     | '/products/'
     | '/profiles/'
     | '/api/orders/$orderId'
+    | '/api/payment/create-intent'
     | '/api/products/$productId'
     | '/api/profiles/$profileId'
+    | '/api/webhooks/stripe'
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
@@ -265,8 +285,10 @@ export interface FileRouteTypes {
     | '/products'
     | '/profiles'
     | '/api/orders/$orderId'
+    | '/api/payment/create-intent'
     | '/api/products/$productId'
     | '/api/profiles/$profileId'
+    | '/api/webhooks/stripe'
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
@@ -290,8 +312,10 @@ export interface FileRouteTypes {
     | '/products/'
     | '/profiles/'
     | '/api/orders/$orderId'
+    | '/api/payment/create-intent'
     | '/api/products/$productId'
     | '/api/profiles/$profileId'
+    | '/api/webhooks/stripe'
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
@@ -315,6 +339,8 @@ export interface RootRouteChildren {
   OrdersIndexRoute: typeof OrdersIndexRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
   ProfilesIndexRoute: typeof ProfilesIndexRoute
+  ApiPaymentCreateIntentRoute: typeof ApiPaymentCreateIntentRoute
+  ApiWebhooksStripeRoute: typeof ApiWebhooksStripeRoute
   DemoApiNamesRoute: typeof DemoApiNamesRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
   DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
@@ -440,6 +466,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoApiNamesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/webhooks/stripe': {
+      id: '/api/webhooks/stripe'
+      path: '/api/webhooks/stripe'
+      fullPath: '/api/webhooks/stripe'
+      preLoaderRoute: typeof ApiWebhooksStripeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/profiles/$profileId': {
       id: '/api/profiles/$profileId'
       path: '/$profileId'
@@ -453,6 +486,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/products/$productId'
       preLoaderRoute: typeof ApiProductsProductIdRouteImport
       parentRoute: typeof ApiProductsRoute
+    }
+    '/api/payment/create-intent': {
+      id: '/api/payment/create-intent'
+      path: '/api/payment/create-intent'
+      fullPath: '/api/payment/create-intent'
+      preLoaderRoute: typeof ApiPaymentCreateIntentRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/api/orders/$orderId': {
       id: '/api/orders/$orderId'
@@ -540,6 +580,8 @@ const rootRouteChildren: RootRouteChildren = {
   OrdersIndexRoute: OrdersIndexRoute,
   ProductsIndexRoute: ProductsIndexRoute,
   ProfilesIndexRoute: ProfilesIndexRoute,
+  ApiPaymentCreateIntentRoute: ApiPaymentCreateIntentRoute,
+  ApiWebhooksStripeRoute: ApiWebhooksStripeRoute,
   DemoApiNamesRoute: DemoApiNamesRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
   DemoStartServerFuncsRoute: DemoStartServerFuncsRoute,

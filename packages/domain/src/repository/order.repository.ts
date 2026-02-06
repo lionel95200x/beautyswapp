@@ -6,7 +6,6 @@ import type { OrderStatus } from '../types';
 export interface OrderFilters {
   status?: OrderStatus;
   buyerId?: string;
-  sellerId?: string;
 }
 
 export async function findAll(filters?: OrderFilters) {
@@ -23,10 +22,6 @@ export async function findAll(filters?: OrderFilters) {
       conditions.push(eq(orders.buyerId, filters.buyerId));
     }
 
-    if (filters.sellerId) {
-      conditions.push(eq(orders.sellerId, filters.sellerId));
-    }
-
     if (conditions.length > 0) {
       query = query.where(and(...conditions)) as typeof query;
     }
@@ -40,6 +35,29 @@ export async function findById(id: string) {
     .select()
     .from(orders)
     .where(eq(orders.id, id))
+    .limit(1);
+
+  return results[0];
+}
+
+export async function create(data: {
+  productId: string;
+  buyerId: string;
+  sellerId: string;
+  amount: string;
+  stripePaymentId: string;
+  status: OrderStatus;
+  paidAt: Date;
+}) {
+  const results = await db.insert(orders).values(data).returning();
+  return results[0];
+}
+
+export async function findByStripePaymentId(stripePaymentId: string) {
+  const results = await db
+    .select()
+    .from(orders)
+    .where(eq(orders.stripePaymentId, stripePaymentId))
     .limit(1);
 
   return results[0];

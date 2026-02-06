@@ -11,6 +11,8 @@ export const productStatus = pgEnum('product_status', [
   'awaiting_seller_approval',
   'published',
   'blocked',
+  'sold',
+  'completed',
 ]);
 
 export const productCondition = pgEnum('product_condition', [

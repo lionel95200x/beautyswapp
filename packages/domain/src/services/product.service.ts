@@ -18,3 +18,26 @@ export async function createProduct(data: NewProduct) {
 export async function updateProduct(id: string, data: productRepository.UpdateProductData) {
   return productRepository.update(id, data);
 }
+
+export async function canBePurchased(productId: string): Promise<{ canBuy: boolean; reason?: string }> {
+  const product = await productRepository.findById(productId);
+
+  if (!product) {
+    return { canBuy: false, reason: 'Product not found' };
+  }
+
+  if (product.status !== 'published') {
+    return { canBuy: false, reason: 'Product is not available for purchase' };
+  }
+
+  if (!product.price) {
+    return { canBuy: false, reason: 'Product has no price' };
+  }
+
+  const priceInEuros = Number(product.price);
+  if (isNaN(priceInEuros) || priceInEuros <= 0) {
+    return { canBuy: false, reason: 'Invalid product price' };
+  }
+
+  return { canBuy: true };
+}

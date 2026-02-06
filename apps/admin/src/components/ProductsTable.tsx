@@ -49,11 +49,9 @@ export function ProductsTable({ products }: ProductsTableProps) {
                   >
                     {product.title}
                   </Link>
-                  {product.description && (
-                    <div className="text-sm text-muted-foreground truncate max-w-xs">
-                      {product.description}
-                    </div>
-                  )}
+                  <div className="text-sm text-muted-foreground truncate max-w-xs">
+                    {product.description}
+                  </div>
                 </TableCell>
                 <TableCell>{product.brand}</TableCell>
                 <TableCell>{product.category}</TableCell>
@@ -61,7 +59,7 @@ export function ProductsTable({ products }: ProductsTableProps) {
                   <Badge variant="secondary">{product.condition}</Badge>
                 </TableCell>
                 <TableCell className="font-medium">
-                  {product.price && `${product.price} €`}
+                  {product.price} €
                 </TableCell>
                 <TableCell>
                   <Badge>{product.status}</Badge>

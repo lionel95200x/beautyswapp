@@ -9,3 +9,15 @@ export async function listOrders(filters?: orderRepository.OrderFilters) {
 export async function getOrderById(id: string) {
   return orderRepository.findById(id);
 }
+
+export async function createOrder(data: {
+  productId: string;
+  buyerId: string;
+  sellerId: string;
+  amount: string;
+  stripePaymentId: string;
+  status: orderRepository.OrderFilters['status'];
+  paidAt: Date;
+}) {
+  return orderRepository.create(data);
+}
