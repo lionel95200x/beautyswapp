@@ -1,7 +1,7 @@
 import { eq, and } from 'drizzle-orm';
 import { db } from '../db';
 import { products } from '../schema';
-import type { ProductStatus, NewProduct } from '../types';
+import type { ProductStatus, ProductCondition, NewProduct } from '../types';
 
 export interface ProductFilters {
   status?: ProductStatus;
@@ -44,6 +44,31 @@ export async function create(data: NewProduct) {
   const results = await db
     .insert(products)
     .values(data)
+    .returning();
+
+  return results[0];
+}
+
+export interface UpdateProductData {
+  title?: string;
+  description?: string;
+  brand?: string;
+  category?: string;
+  condition?: ProductCondition;
+  price?: string;
+  batchCode?: string;
+  paoOrExpiry?: string;
+  status?: ProductStatus;
+}
+
+export async function update(id: string, data: UpdateProductData) {
+  const results = await db
+    .update(products)
+    .set({
+      ...data,
+      updatedAt: new Date(),
+    })
+    .where(eq(products.id, id))
     .returning();
 
   return results[0];

@@ -14,3 +14,7 @@ export async function getProductById(id: string) {
 export async function createProduct(data: NewProduct) {
   return productRepository.create(data);
 }
+
+export async function updateProduct(id: string, data: productRepository.UpdateProductData) {
+  return productRepository.update(id, data);
+}

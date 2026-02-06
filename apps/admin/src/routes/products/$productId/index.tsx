@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { useProduct } from '@beautyswapp/domain/hooks/useProduct';
-import { ArrowLeft, Package, Tag, AlertCircle, Calendar, User } from 'lucide-react';
+import { ArrowLeft, Package, Tag, AlertCircle, Calendar, User, Edit } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -8,7 +8,7 @@ import { PageLayout } from '@/components/ui/page-layout';
 import { LoadingState } from '@/components/ui/loading-state';
 import { ErrorState } from '@/components/ui/error-state';
 
-export const Route = createFileRoute('/products/$productId')({
+export const Route = createFileRoute('/products/$productId/')({
   component: ProductDetailPage,
 });
 
@@ -34,11 +34,17 @@ function ProductDetailPage() {
 
   return (
     <PageLayout>
-      <div className="mb-6">
+      <div className="mb-6 flex items-center justify-between">
         <Button variant="ghost" asChild>
           <Link to="/products">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Retour aux produits
+          </Link>
+        </Button>
+        <Button asChild>
+          <Link to="/products/$productId/edit" params={{ productId }}>
+            <Edit className="h-4 w-4 mr-2" />
+            Modifier
           </Link>
         </Button>
       </div>

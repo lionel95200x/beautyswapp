@@ -12,17 +12,22 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProfilesIndexRouteImport } from './routes/profiles/index'
 import { Route as ProductsIndexRouteImport } from './routes/products/index'
+import { Route as OrdersIndexRouteImport } from './routes/orders/index'
 import { Route as ProfilesProfileIdRouteImport } from './routes/profiles/$profileId'
 import { Route as ProductsCreateRouteImport } from './routes/products/create'
-import { Route as ProductsProductIdRouteImport } from './routes/products/$productId'
+import { Route as OrdersOrderIdRouteImport } from './routes/orders/$orderId'
 import { Route as AuthCallbackRouteImport } from './routes/auth/callback'
 import { Route as ApiProfilesRouteImport } from './routes/api/profiles'
 import { Route as ApiProductsRouteImport } from './routes/api/products'
+import { Route as ApiOrdersRouteImport } from './routes/api/orders'
+import { Route as ProductsProductIdIndexRouteImport } from './routes/products/$productId/index'
+import { Route as ProductsProductIdEditRouteImport } from './routes/products/$productId/edit'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request'
 import { Route as DemoApiNamesRouteImport } from './routes/demo/api.names'
 import { Route as ApiProfilesProfileIdRouteImport } from './routes/api/profiles/$profileId'
 import { Route as ApiProductsProductIdRouteImport } from './routes/api/products/$productId'
+import { Route as ApiOrdersOrderIdRouteImport } from './routes/api/orders/$orderId'
 import { Route as DemoStartSsrIndexRouteImport } from './routes/demo/start.ssr.index'
 import { Route as DemoStartSsrSpaModeRouteImport } from './routes/demo/start.ssr.spa-mode'
 import { Route as DemoStartSsrFullSsrRouteImport } from './routes/demo/start.ssr.full-ssr'
@@ -43,6 +48,11 @@ const ProductsIndexRoute = ProductsIndexRouteImport.update({
   path: '/products/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OrdersIndexRoute = OrdersIndexRouteImport.update({
+  id: '/orders/',
+  path: '/orders/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProfilesProfileIdRoute = ProfilesProfileIdRouteImport.update({
   id: '/profiles/$profileId',
   path: '/profiles/$profileId',
@@ -53,9 +63,9 @@ const ProductsCreateRoute = ProductsCreateRouteImport.update({
   path: '/products/create',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProductsProductIdRoute = ProductsProductIdRouteImport.update({
-  id: '/products/$productId',
-  path: '/products/$productId',
+const OrdersOrderIdRoute = OrdersOrderIdRouteImport.update({
+  id: '/orders/$orderId',
+  path: '/orders/$orderId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthCallbackRoute = AuthCallbackRouteImport.update({
@@ -71,6 +81,21 @@ const ApiProfilesRoute = ApiProfilesRouteImport.update({
 const ApiProductsRoute = ApiProductsRouteImport.update({
   id: '/api/products',
   path: '/api/products',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiOrdersRoute = ApiOrdersRouteImport.update({
+  id: '/api/orders',
+  path: '/api/orders',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsProductIdIndexRoute = ProductsProductIdIndexRouteImport.update({
+  id: '/products/$productId/',
+  path: '/products/$productId/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsProductIdEditRoute = ProductsProductIdEditRouteImport.update({
+  id: '/products/$productId/edit',
+  path: '/products/$productId/edit',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoStartServerFuncsRoute = DemoStartServerFuncsRouteImport.update({
@@ -98,6 +123,11 @@ const ApiProductsProductIdRoute = ApiProductsProductIdRouteImport.update({
   path: '/$productId',
   getParentRoute: () => ApiProductsRoute,
 } as any)
+const ApiOrdersOrderIdRoute = ApiOrdersOrderIdRouteImport.update({
+  id: '/$orderId',
+  path: '/$orderId',
+  getParentRoute: () => ApiOrdersRoute,
+} as any)
 const DemoStartSsrIndexRoute = DemoStartSsrIndexRouteImport.update({
   id: '/demo/start/ssr/',
   path: '/demo/start/ssr/',
@@ -121,19 +151,24 @@ const DemoStartSsrDataOnlyRoute = DemoStartSsrDataOnlyRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api/orders': typeof ApiOrdersRouteWithChildren
   '/api/products': typeof ApiProductsRouteWithChildren
   '/api/profiles': typeof ApiProfilesRouteWithChildren
   '/auth/callback': typeof AuthCallbackRoute
-  '/products/$productId': typeof ProductsProductIdRoute
+  '/orders/$orderId': typeof OrdersOrderIdRoute
   '/products/create': typeof ProductsCreateRoute
   '/profiles/$profileId': typeof ProfilesProfileIdRoute
+  '/orders/': typeof OrdersIndexRoute
   '/products/': typeof ProductsIndexRoute
   '/profiles/': typeof ProfilesIndexRoute
+  '/api/orders/$orderId': typeof ApiOrdersOrderIdRoute
   '/api/products/$productId': typeof ApiProductsProductIdRoute
   '/api/profiles/$profileId': typeof ApiProfilesProfileIdRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/products/$productId/edit': typeof ProductsProductIdEditRoute
+  '/products/$productId/': typeof ProductsProductIdIndexRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
@@ -141,19 +176,24 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api/orders': typeof ApiOrdersRouteWithChildren
   '/api/products': typeof ApiProductsRouteWithChildren
   '/api/profiles': typeof ApiProfilesRouteWithChildren
   '/auth/callback': typeof AuthCallbackRoute
-  '/products/$productId': typeof ProductsProductIdRoute
+  '/orders/$orderId': typeof OrdersOrderIdRoute
   '/products/create': typeof ProductsCreateRoute
   '/profiles/$profileId': typeof ProfilesProfileIdRoute
+  '/orders': typeof OrdersIndexRoute
   '/products': typeof ProductsIndexRoute
   '/profiles': typeof ProfilesIndexRoute
+  '/api/orders/$orderId': typeof ApiOrdersOrderIdRoute
   '/api/products/$productId': typeof ApiProductsProductIdRoute
   '/api/profiles/$profileId': typeof ApiProfilesProfileIdRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/products/$productId/edit': typeof ProductsProductIdEditRoute
+  '/products/$productId': typeof ProductsProductIdIndexRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
@@ -162,19 +202,24 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/api/orders': typeof ApiOrdersRouteWithChildren
   '/api/products': typeof ApiProductsRouteWithChildren
   '/api/profiles': typeof ApiProfilesRouteWithChildren
   '/auth/callback': typeof AuthCallbackRoute
-  '/products/$productId': typeof ProductsProductIdRoute
+  '/orders/$orderId': typeof OrdersOrderIdRoute
   '/products/create': typeof ProductsCreateRoute
   '/profiles/$profileId': typeof ProfilesProfileIdRoute
+  '/orders/': typeof OrdersIndexRoute
   '/products/': typeof ProductsIndexRoute
   '/profiles/': typeof ProfilesIndexRoute
+  '/api/orders/$orderId': typeof ApiOrdersOrderIdRoute
   '/api/products/$productId': typeof ApiProductsProductIdRoute
   '/api/profiles/$profileId': typeof ApiProfilesProfileIdRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
+  '/products/$productId/edit': typeof ProductsProductIdEditRoute
+  '/products/$productId/': typeof ProductsProductIdIndexRoute
   '/demo/start/ssr/data-only': typeof DemoStartSsrDataOnlyRoute
   '/demo/start/ssr/full-ssr': typeof DemoStartSsrFullSsrRoute
   '/demo/start/ssr/spa-mode': typeof DemoStartSsrSpaModeRoute
@@ -184,19 +229,24 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/api/orders'
     | '/api/products'
     | '/api/profiles'
     | '/auth/callback'
-    | '/products/$productId'
+    | '/orders/$orderId'
     | '/products/create'
     | '/profiles/$profileId'
+    | '/orders/'
     | '/products/'
     | '/profiles/'
+    | '/api/orders/$orderId'
     | '/api/products/$productId'
     | '/api/profiles/$profileId'
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/products/$productId/edit'
+    | '/products/$productId/'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
@@ -204,19 +254,24 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/api/orders'
     | '/api/products'
     | '/api/profiles'
     | '/auth/callback'
-    | '/products/$productId'
+    | '/orders/$orderId'
     | '/products/create'
     | '/profiles/$profileId'
+    | '/orders'
     | '/products'
     | '/profiles'
+    | '/api/orders/$orderId'
     | '/api/products/$productId'
     | '/api/profiles/$profileId'
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/products/$productId/edit'
+    | '/products/$productId'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
@@ -224,19 +279,24 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/api/orders'
     | '/api/products'
     | '/api/profiles'
     | '/auth/callback'
-    | '/products/$productId'
+    | '/orders/$orderId'
     | '/products/create'
     | '/profiles/$profileId'
+    | '/orders/'
     | '/products/'
     | '/profiles/'
+    | '/api/orders/$orderId'
     | '/api/products/$productId'
     | '/api/profiles/$profileId'
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
+    | '/products/$productId/edit'
+    | '/products/$productId/'
     | '/demo/start/ssr/data-only'
     | '/demo/start/ssr/full-ssr'
     | '/demo/start/ssr/spa-mode'
@@ -245,17 +305,21 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApiOrdersRoute: typeof ApiOrdersRouteWithChildren
   ApiProductsRoute: typeof ApiProductsRouteWithChildren
   ApiProfilesRoute: typeof ApiProfilesRouteWithChildren
   AuthCallbackRoute: typeof AuthCallbackRoute
-  ProductsProductIdRoute: typeof ProductsProductIdRoute
+  OrdersOrderIdRoute: typeof OrdersOrderIdRoute
   ProductsCreateRoute: typeof ProductsCreateRoute
   ProfilesProfileIdRoute: typeof ProfilesProfileIdRoute
+  OrdersIndexRoute: typeof OrdersIndexRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
   ProfilesIndexRoute: typeof ProfilesIndexRoute
   DemoApiNamesRoute: typeof DemoApiNamesRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
   DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
+  ProductsProductIdEditRoute: typeof ProductsProductIdEditRoute
+  ProductsProductIdIndexRoute: typeof ProductsProductIdIndexRoute
   DemoStartSsrDataOnlyRoute: typeof DemoStartSsrDataOnlyRoute
   DemoStartSsrFullSsrRoute: typeof DemoStartSsrFullSsrRoute
   DemoStartSsrSpaModeRoute: typeof DemoStartSsrSpaModeRoute
@@ -285,6 +349,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/orders/': {
+      id: '/orders/'
+      path: '/orders'
+      fullPath: '/orders/'
+      preLoaderRoute: typeof OrdersIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/profiles/$profileId': {
       id: '/profiles/$profileId'
       path: '/profiles/$profileId'
@@ -299,11 +370,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsCreateRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/products/$productId': {
-      id: '/products/$productId'
-      path: '/products/$productId'
-      fullPath: '/products/$productId'
-      preLoaderRoute: typeof ProductsProductIdRouteImport
+    '/orders/$orderId': {
+      id: '/orders/$orderId'
+      path: '/orders/$orderId'
+      fullPath: '/orders/$orderId'
+      preLoaderRoute: typeof OrdersOrderIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/callback': {
@@ -325,6 +396,27 @@ declare module '@tanstack/react-router' {
       path: '/api/products'
       fullPath: '/api/products'
       preLoaderRoute: typeof ApiProductsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/orders': {
+      id: '/api/orders'
+      path: '/api/orders'
+      fullPath: '/api/orders'
+      preLoaderRoute: typeof ApiOrdersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/$productId/': {
+      id: '/products/$productId/'
+      path: '/products/$productId'
+      fullPath: '/products/$productId/'
+      preLoaderRoute: typeof ProductsProductIdIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/$productId/edit': {
+      id: '/products/$productId/edit'
+      path: '/products/$productId/edit'
+      fullPath: '/products/$productId/edit'
+      preLoaderRoute: typeof ProductsProductIdEditRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/start/server-funcs': {
@@ -362,6 +454,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiProductsProductIdRouteImport
       parentRoute: typeof ApiProductsRoute
     }
+    '/api/orders/$orderId': {
+      id: '/api/orders/$orderId'
+      path: '/$orderId'
+      fullPath: '/api/orders/$orderId'
+      preLoaderRoute: typeof ApiOrdersOrderIdRouteImport
+      parentRoute: typeof ApiOrdersRoute
+    }
     '/demo/start/ssr/': {
       id: '/demo/start/ssr/'
       path: '/demo/start/ssr'
@@ -393,6 +492,18 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface ApiOrdersRouteChildren {
+  ApiOrdersOrderIdRoute: typeof ApiOrdersOrderIdRoute
+}
+
+const ApiOrdersRouteChildren: ApiOrdersRouteChildren = {
+  ApiOrdersOrderIdRoute: ApiOrdersOrderIdRoute,
+}
+
+const ApiOrdersRouteWithChildren = ApiOrdersRoute._addFileChildren(
+  ApiOrdersRouteChildren,
+)
+
 interface ApiProductsRouteChildren {
   ApiProductsProductIdRoute: typeof ApiProductsProductIdRoute
 }
@@ -419,17 +530,21 @@ const ApiProfilesRouteWithChildren = ApiProfilesRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApiOrdersRoute: ApiOrdersRouteWithChildren,
   ApiProductsRoute: ApiProductsRouteWithChildren,
   ApiProfilesRoute: ApiProfilesRouteWithChildren,
   AuthCallbackRoute: AuthCallbackRoute,
-  ProductsProductIdRoute: ProductsProductIdRoute,
+  OrdersOrderIdRoute: OrdersOrderIdRoute,
   ProductsCreateRoute: ProductsCreateRoute,
   ProfilesProfileIdRoute: ProfilesProfileIdRoute,
+  OrdersIndexRoute: OrdersIndexRoute,
   ProductsIndexRoute: ProductsIndexRoute,
   ProfilesIndexRoute: ProfilesIndexRoute,
   DemoApiNamesRoute: DemoApiNamesRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
   DemoStartServerFuncsRoute: DemoStartServerFuncsRoute,
+  ProductsProductIdEditRoute: ProductsProductIdEditRoute,
+  ProductsProductIdIndexRoute: ProductsProductIdIndexRoute,
   DemoStartSsrDataOnlyRoute: DemoStartSsrDataOnlyRoute,
   DemoStartSsrFullSsrRoute: DemoStartSsrFullSsrRoute,
   DemoStartSsrSpaModeRoute: DemoStartSsrSpaModeRoute,
