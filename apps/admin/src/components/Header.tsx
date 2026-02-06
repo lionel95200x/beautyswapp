@@ -34,7 +34,7 @@ export default function Header() {
       setEmail('');
       setPassword('');
     } catch (error: any) {
-      toast.error(error.message || 'Erreur de connexion');
+      toast.error(error.message);
     } finally {
       setIsLoading(false);
     }
@@ -51,7 +51,7 @@ export default function Header() {
       setEmail('');
       setPassword('');
     } catch (error: any) {
-      toast.error(error.message || "Erreur d'inscription");
+      toast.error(error.message);
     } finally {
       setIsLoading(false);
     }
@@ -61,7 +61,7 @@ export default function Header() {
     try {
       await signInWithGoogle(`${window.location.origin}/auth/callback`);
     } catch (error: any) {
-      toast.error(error.message || 'Erreur de connexion Google');
+      toast.error(error.message);
     }
   };
 
@@ -70,7 +70,7 @@ export default function Header() {
       await signOut();
       toast.success('Déconnexion réussie');
     } catch (error: any) {
-      toast.error(error.message || 'Erreur de déconnexion');
+      toast.error(error.message);
     }
   };
 
@@ -89,6 +89,13 @@ export default function Header() {
               activeProps={{ className: 'text-primary font-semibold' }}
             >
               Produits
+            </Link>
+            <Link
+              to="/profiles"
+              className="text-sm hover:text-primary transition-colors"
+              activeProps={{ className: 'text-primary font-semibold' }}
+            >
+              Profils
             </Link>
           </nav>
         </div>

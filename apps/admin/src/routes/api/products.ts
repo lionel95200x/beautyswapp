@@ -1,10 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { json } from '@tanstack/react-start';
-import { listAllProducts, createProduct } from '@beautyswapp/domain/services/product.service';
+import { listProducts, createProduct } from '@beautyswapp/domain/services/product.service';
 import type { ProductStatus, NewProduct } from '@beautyswapp/domain/types';
 
 type ProductsSearch = {
   status?: ProductStatus;
+  sellerId?: string;
 };
 
 export const Route = createFileRoute('/api/products')({
@@ -19,6 +20,7 @@ export const Route = createFileRoute('/api/products')({
     ];
 
     const status = search.status as string;
+    const sellerId = search.sellerId as string;
 
     if (status && !validStatuses.includes(status as ProductStatus)) {
       throw new Error(`Invalid status: ${status}`);
@@ -26,6 +28,7 @@ export const Route = createFileRoute('/api/products')({
 
     return {
       status: status as ProductStatus,
+      sellerId,
     };
   },
   server: {
@@ -33,9 +36,20 @@ export const Route = createFileRoute('/api/products')({
       GET: async (ctx) => {
         const url = new URL(ctx.request.url);
         const status = url.searchParams.get('status') as ProductStatus | null;
+        const sellerId = url.searchParams.get('sellerId');
 
-        const products = await listAllProducts(
-          status ? { status } : undefined
+        const filters: { status?: ProductStatus; sellerId?: string } = {};
+
+        if (status) {
+          filters.status = status;
+        }
+
+        if (sellerId) {
+          filters.sellerId = sellerId;
+        }
+
+        const products = await listProducts(
+          Object.keys(filters).length > 0 ? filters : undefined
         );
 
         return json(products);

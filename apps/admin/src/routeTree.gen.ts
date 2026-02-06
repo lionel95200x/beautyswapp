@@ -10,14 +10,19 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ProfilesIndexRouteImport } from './routes/profiles/index'
 import { Route as ProductsIndexRouteImport } from './routes/products/index'
+import { Route as ProfilesProfileIdRouteImport } from './routes/profiles/$profileId'
 import { Route as ProductsCreateRouteImport } from './routes/products/create'
+import { Route as ProductsProductIdRouteImport } from './routes/products/$productId'
 import { Route as AuthCallbackRouteImport } from './routes/auth/callback'
 import { Route as ApiProfilesRouteImport } from './routes/api/profiles'
 import { Route as ApiProductsRouteImport } from './routes/api/products'
 import { Route as DemoStartServerFuncsRouteImport } from './routes/demo/start.server-funcs'
 import { Route as DemoStartApiRequestRouteImport } from './routes/demo/start.api-request'
 import { Route as DemoApiNamesRouteImport } from './routes/demo/api.names'
+import { Route as ApiProfilesProfileIdRouteImport } from './routes/api/profiles/$profileId'
+import { Route as ApiProductsProductIdRouteImport } from './routes/api/products/$productId'
 import { Route as DemoStartSsrIndexRouteImport } from './routes/demo/start.ssr.index'
 import { Route as DemoStartSsrSpaModeRouteImport } from './routes/demo/start.ssr.spa-mode'
 import { Route as DemoStartSsrFullSsrRouteImport } from './routes/demo/start.ssr.full-ssr'
@@ -28,14 +33,29 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfilesIndexRoute = ProfilesIndexRouteImport.update({
+  id: '/profiles/',
+  path: '/profiles/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductsIndexRoute = ProductsIndexRouteImport.update({
   id: '/products/',
   path: '/products/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfilesProfileIdRoute = ProfilesProfileIdRouteImport.update({
+  id: '/profiles/$profileId',
+  path: '/profiles/$profileId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductsCreateRoute = ProductsCreateRouteImport.update({
   id: '/products/create',
   path: '/products/create',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductsProductIdRoute = ProductsProductIdRouteImport.update({
+  id: '/products/$productId',
+  path: '/products/$productId',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthCallbackRoute = AuthCallbackRouteImport.update({
@@ -68,6 +88,16 @@ const DemoApiNamesRoute = DemoApiNamesRouteImport.update({
   path: '/demo/api/names',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiProfilesProfileIdRoute = ApiProfilesProfileIdRouteImport.update({
+  id: '/$profileId',
+  path: '/$profileId',
+  getParentRoute: () => ApiProfilesRoute,
+} as any)
+const ApiProductsProductIdRoute = ApiProductsProductIdRouteImport.update({
+  id: '/$productId',
+  path: '/$productId',
+  getParentRoute: () => ApiProductsRoute,
+} as any)
 const DemoStartSsrIndexRoute = DemoStartSsrIndexRouteImport.update({
   id: '/demo/start/ssr/',
   path: '/demo/start/ssr/',
@@ -91,11 +121,16 @@ const DemoStartSsrDataOnlyRoute = DemoStartSsrDataOnlyRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/api/products': typeof ApiProductsRoute
-  '/api/profiles': typeof ApiProfilesRoute
+  '/api/products': typeof ApiProductsRouteWithChildren
+  '/api/profiles': typeof ApiProfilesRouteWithChildren
   '/auth/callback': typeof AuthCallbackRoute
+  '/products/$productId': typeof ProductsProductIdRoute
   '/products/create': typeof ProductsCreateRoute
+  '/profiles/$profileId': typeof ProfilesProfileIdRoute
   '/products/': typeof ProductsIndexRoute
+  '/profiles/': typeof ProfilesIndexRoute
+  '/api/products/$productId': typeof ApiProductsProductIdRoute
+  '/api/profiles/$profileId': typeof ApiProfilesProfileIdRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
@@ -106,11 +141,16 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/api/products': typeof ApiProductsRoute
-  '/api/profiles': typeof ApiProfilesRoute
+  '/api/products': typeof ApiProductsRouteWithChildren
+  '/api/profiles': typeof ApiProfilesRouteWithChildren
   '/auth/callback': typeof AuthCallbackRoute
+  '/products/$productId': typeof ProductsProductIdRoute
   '/products/create': typeof ProductsCreateRoute
+  '/profiles/$profileId': typeof ProfilesProfileIdRoute
   '/products': typeof ProductsIndexRoute
+  '/profiles': typeof ProfilesIndexRoute
+  '/api/products/$productId': typeof ApiProductsProductIdRoute
+  '/api/profiles/$profileId': typeof ApiProfilesProfileIdRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
@@ -122,11 +162,16 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/api/products': typeof ApiProductsRoute
-  '/api/profiles': typeof ApiProfilesRoute
+  '/api/products': typeof ApiProductsRouteWithChildren
+  '/api/profiles': typeof ApiProfilesRouteWithChildren
   '/auth/callback': typeof AuthCallbackRoute
+  '/products/$productId': typeof ProductsProductIdRoute
   '/products/create': typeof ProductsCreateRoute
+  '/profiles/$profileId': typeof ProfilesProfileIdRoute
   '/products/': typeof ProductsIndexRoute
+  '/profiles/': typeof ProfilesIndexRoute
+  '/api/products/$productId': typeof ApiProductsProductIdRoute
+  '/api/profiles/$profileId': typeof ApiProfilesProfileIdRoute
   '/demo/api/names': typeof DemoApiNamesRoute
   '/demo/start/api-request': typeof DemoStartApiRequestRoute
   '/demo/start/server-funcs': typeof DemoStartServerFuncsRoute
@@ -142,8 +187,13 @@ export interface FileRouteTypes {
     | '/api/products'
     | '/api/profiles'
     | '/auth/callback'
+    | '/products/$productId'
     | '/products/create'
+    | '/profiles/$profileId'
     | '/products/'
+    | '/profiles/'
+    | '/api/products/$productId'
+    | '/api/profiles/$profileId'
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
@@ -157,8 +207,13 @@ export interface FileRouteTypes {
     | '/api/products'
     | '/api/profiles'
     | '/auth/callback'
+    | '/products/$productId'
     | '/products/create'
+    | '/profiles/$profileId'
     | '/products'
+    | '/profiles'
+    | '/api/products/$productId'
+    | '/api/profiles/$profileId'
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
@@ -172,8 +227,13 @@ export interface FileRouteTypes {
     | '/api/products'
     | '/api/profiles'
     | '/auth/callback'
+    | '/products/$productId'
     | '/products/create'
+    | '/profiles/$profileId'
     | '/products/'
+    | '/profiles/'
+    | '/api/products/$productId'
+    | '/api/profiles/$profileId'
     | '/demo/api/names'
     | '/demo/start/api-request'
     | '/demo/start/server-funcs'
@@ -185,11 +245,14 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ApiProductsRoute: typeof ApiProductsRoute
-  ApiProfilesRoute: typeof ApiProfilesRoute
+  ApiProductsRoute: typeof ApiProductsRouteWithChildren
+  ApiProfilesRoute: typeof ApiProfilesRouteWithChildren
   AuthCallbackRoute: typeof AuthCallbackRoute
+  ProductsProductIdRoute: typeof ProductsProductIdRoute
   ProductsCreateRoute: typeof ProductsCreateRoute
+  ProfilesProfileIdRoute: typeof ProfilesProfileIdRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
+  ProfilesIndexRoute: typeof ProfilesIndexRoute
   DemoApiNamesRoute: typeof DemoApiNamesRoute
   DemoStartApiRequestRoute: typeof DemoStartApiRequestRoute
   DemoStartServerFuncsRoute: typeof DemoStartServerFuncsRoute
@@ -208,6 +271,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profiles/': {
+      id: '/profiles/'
+      path: '/profiles'
+      fullPath: '/profiles/'
+      preLoaderRoute: typeof ProfilesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/products/': {
       id: '/products/'
       path: '/products'
@@ -215,11 +285,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profiles/$profileId': {
+      id: '/profiles/$profileId'
+      path: '/profiles/$profileId'
+      fullPath: '/profiles/$profileId'
+      preLoaderRoute: typeof ProfilesProfileIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/products/create': {
       id: '/products/create'
       path: '/products/create'
       fullPath: '/products/create'
       preLoaderRoute: typeof ProductsCreateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/products/$productId': {
+      id: '/products/$productId'
+      path: '/products/$productId'
+      fullPath: '/products/$productId'
+      preLoaderRoute: typeof ProductsProductIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/callback': {
@@ -264,6 +348,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoApiNamesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/profiles/$profileId': {
+      id: '/api/profiles/$profileId'
+      path: '/$profileId'
+      fullPath: '/api/profiles/$profileId'
+      preLoaderRoute: typeof ApiProfilesProfileIdRouteImport
+      parentRoute: typeof ApiProfilesRoute
+    }
+    '/api/products/$productId': {
+      id: '/api/products/$productId'
+      path: '/$productId'
+      fullPath: '/api/products/$productId'
+      preLoaderRoute: typeof ApiProductsProductIdRouteImport
+      parentRoute: typeof ApiProductsRoute
+    }
     '/demo/start/ssr/': {
       id: '/demo/start/ssr/'
       path: '/demo/start/ssr'
@@ -295,13 +393,40 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface ApiProductsRouteChildren {
+  ApiProductsProductIdRoute: typeof ApiProductsProductIdRoute
+}
+
+const ApiProductsRouteChildren: ApiProductsRouteChildren = {
+  ApiProductsProductIdRoute: ApiProductsProductIdRoute,
+}
+
+const ApiProductsRouteWithChildren = ApiProductsRoute._addFileChildren(
+  ApiProductsRouteChildren,
+)
+
+interface ApiProfilesRouteChildren {
+  ApiProfilesProfileIdRoute: typeof ApiProfilesProfileIdRoute
+}
+
+const ApiProfilesRouteChildren: ApiProfilesRouteChildren = {
+  ApiProfilesProfileIdRoute: ApiProfilesProfileIdRoute,
+}
+
+const ApiProfilesRouteWithChildren = ApiProfilesRoute._addFileChildren(
+  ApiProfilesRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ApiProductsRoute: ApiProductsRoute,
-  ApiProfilesRoute: ApiProfilesRoute,
+  ApiProductsRoute: ApiProductsRouteWithChildren,
+  ApiProfilesRoute: ApiProfilesRouteWithChildren,
   AuthCallbackRoute: AuthCallbackRoute,
+  ProductsProductIdRoute: ProductsProductIdRoute,
   ProductsCreateRoute: ProductsCreateRoute,
+  ProfilesProfileIdRoute: ProfilesProfileIdRoute,
   ProductsIndexRoute: ProductsIndexRoute,
+  ProfilesIndexRoute: ProfilesIndexRoute,
   DemoApiNamesRoute: DemoApiNamesRoute,
   DemoStartApiRequestRoute: DemoStartApiRequestRoute,
   DemoStartServerFuncsRoute: DemoStartServerFuncsRoute,

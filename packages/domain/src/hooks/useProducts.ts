@@ -4,6 +4,7 @@ import type { Product, ProductStatus } from '../types';
 export interface UseProductsOptions {
   filters?: {
     status?: ProductStatus;
+    sellerId?: string;
   };
 }
 
@@ -12,6 +13,10 @@ export function useProducts(options?: UseProductsOptions) {
 
   if (options?.filters?.status) {
     params.append('status', options.filters.status);
+  }
+
+  if (options?.filters?.sellerId) {
+    params.append('sellerId', options.filters.sellerId);
   }
 
   const queryString = params.toString();

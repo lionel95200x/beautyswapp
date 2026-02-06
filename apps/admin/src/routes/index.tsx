@@ -28,9 +28,13 @@ function HomePage() {
     );
   }
 
-  const publishedCount = products?.filter(p => p.status === 'published').length || 0;
-  const submittedCount = products?.filter(p => p.status === 'submitted').length || 0;
-  const totalCount = products?.length || 0;
+  if (!products) {
+    return null;
+  }
+
+  const publishedCount = products.filter(p => p.status === 'published').length;
+  const submittedCount = products.filter(p => p.status === 'submitted').length;
+  const totalCount = products.length;
 
   return (
     <div className="container mx-auto py-10">

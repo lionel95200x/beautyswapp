@@ -1,16 +1,10 @@
 import * as productRepository from '../repository/product.repository';
-import type { ProductStatus, NewProduct } from '../types';
+import type { NewProduct } from '../types';
 
-export interface ProductFilters {
-  status?: ProductStatus;
-}
+export type { ProductFilters } from '../repository/product.repository';
 
-export async function listAllProducts(filters?: ProductFilters) {
+export async function listProducts(filters?: productRepository.ProductFilters) {
   return productRepository.findAll(filters);
-}
-
-export async function listPublishedProducts() {
-  return productRepository.findAllPublished();
 }
 
 export async function getProductById(id: string) {
