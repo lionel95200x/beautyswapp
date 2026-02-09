@@ -1,98 +1,103 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
-
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+import { YStack, Heading, Text, Card, XStack, Button, ScrollView } from 'tamagui';
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <ScrollView>
+      <YStack flex={1} padding="$4" backgroundColor="$background">
+        <YStack paddingTop="$8" paddingBottom="$4">
+          <Heading size="$9" color="$color">
+            Welcome to Beautyswapp
+          </Heading>
+          <Text color="$gray10" marginTop="$2" fontSize="$4">
+            Discover, share, and swap beauty products
+          </Text>
+        </YStack>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+        <YStack gap="$4" marginTop="$4">
+          <Card
+            elevation="$2"
+            size="$4"
+            borderWidth="$0.5"
+            borderColor="$borderColor"
+            padding="$4"
+            backgroundColor="$backgroundHover"
+          >
+            <Card.Header>
+              <Heading size="$6" color="$color">
+                Featured Products
+              </Heading>
+            </Card.Header>
+            <Text color="$gray11" marginTop="$2">
+              Explore the latest beauty products from our community
+            </Text>
+            <Button marginTop="$4">
+              Browse Products
+            </Button>
+          </Card>
+
+          <Card
+            elevation="$2"
+            size="$4"
+            borderWidth="$0.5"
+            borderColor="$borderColor"
+            padding="$4"
+            backgroundColor="$backgroundHover"
+          >
+            <Card.Header>
+              <Heading size="$6" color="$color">
+                Swap with Friends
+              </Heading>
+            </Card.Header>
+            <Text color="$gray11" marginTop="$2">
+              Exchange beauty products with people nearby
+            </Text>
+            <Button marginTop="$4">
+              Start Swapping
+            </Button>
+          </Card>
+
+          <Card
+            elevation="$2"
+            size="$4"
+            borderWidth="$0.5"
+            borderColor="$borderColor"
+            padding="$4"
+            backgroundColor="$backgroundHover"
+          >
+            <Card.Header>
+              <Heading size="$6" color="$color">
+                Your Collection
+              </Heading>
+            </Card.Header>
+            <XStack gap="$4" marginTop="$3">
+              <YStack flex={1} alignItems="center">
+                <Text fontSize="$7" fontWeight="bold" color="$color">
+                  12
+                </Text>
+                <Text color="$gray10" fontSize="$2">
+                  Products
+                </Text>
+              </YStack>
+              <YStack flex={1} alignItems="center">
+                <Text fontSize="$7" fontWeight="bold" color="$color">
+                  8
+                </Text>
+                <Text color="$gray10" fontSize="$2">
+                  Swaps
+                </Text>
+              </YStack>
+              <YStack flex={1} alignItems="center">
+                <Text fontSize="$7" fontWeight="bold" color="$color">
+                  24
+                </Text>
+                <Text color="$gray10" fontSize="$2">
+                  Reviews
+                </Text>
+              </YStack>
+            </XStack>
+          </Card>
+        </YStack>
+      </YStack>
+    </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});

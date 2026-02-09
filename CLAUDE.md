@@ -71,6 +71,46 @@ routes/products/$productId/index.tsx → /products/$productId
 routes/products/$productId/edit.tsx  → /products/$productId/edit
 ```
 
+## 🔄 Data Fetching
+
+**❌ JAMAIS de fetch/axios dans les fichiers .tsx**
+- Toujours utiliser `useQuery` de TanStack Query pour les GET
+- Toujours utiliser `useMutation` de TanStack Query pour les POST/PUT/DELETE
+- Pas de `fetch()`, `axios()`, ou appels HTTP directs dans les composants
+
+**Exemples:**
+
+```typescript
+❌ Interdit (fetch direct):
+const [data, setData] = useState([])
+useEffect(() => {
+  fetch('/api/products')
+    .then(res => res.json())
+    .then(setData)
+}, [])
+
+❌ Interdit (async dans useEffect):
+useEffect(() => {
+  const fetchData = async () => {
+    const res = await fetch('/api/products')
+    setData(await res.json())
+  }
+  fetchData()
+}, [])
+
+✅ Correct (useQuery):
+const { data, isLoading } = useQuery({
+  queryFn: () => sdk.admin.product.list(),
+  queryKey: ['products'],
+})
+
+✅ Correct (useMutation):
+const updateProduct = useMutation({
+  mutationFn: (id: string) => sdk.admin.product.update(id, data),
+  onSuccess: () => queryClient.invalidateQueries(['products']),
+})
+```
+
 ## 📱 Apps Spécifiques
 
 - **beautyswapp-app** : Voir [apps/beautyswapp-app/CLAUDE.md](apps/beautyswapp-app/CLAUDE.md) pour les règles Tamagui et Expo

@@ -5,15 +5,17 @@ import { useAuth } from '@beautyswapp/medusa-client/hooks/useAuth';
 import { AuthLayout } from './auth-layout';
 import { AuthField } from './auth-fields';
 
-export function LoginForm() {
+export function RegisterForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { signIn, loading } = useAuth();
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const { signUp, loading } = useAuth();
   const router = useRouter();
 
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     try {
-      await signIn(email, password);
+      await signUp(email, password, firstName, lastName);
       router.replace('/(tabs)');
     } catch (error: any) {
       Alert.alert('Erreur', error.message);
@@ -22,15 +24,29 @@ export function LoginForm() {
 
   return (
     <AuthLayout
-      title="Connexion"
-      subtitle="Bienvenue sur Beautyswapp"
-      onSubmit={handleLogin}
-      submitText="Se connecter"
+      title="Inscription"
+      subtitle="Rejoins la communauté Beautyswapp"
+      onSubmit={handleRegister}
+      submitText="S'inscrire"
       loading={loading}
-      footerText="Pas encore de compte ?"
-      footerLinkText="S'inscrire"
-      footerLinkHref="/register"
+      footerText="Déjà un compte ?"
+      footerLinkText="Se connecter"
+      footerLinkHref="/login"
     >
+      <AuthField
+        value={firstName}
+        onChangeText={setFirstName}
+        placeholder="Prénom"
+        icon="person-outline"
+        autoCapitalize="words"
+      />
+      <AuthField
+        value={lastName}
+        onChangeText={setLastName}
+        placeholder="Nom"
+        icon="person-outline"
+        autoCapitalize="words"
+      />
       <AuthField
         value={email}
         onChangeText={setEmail}

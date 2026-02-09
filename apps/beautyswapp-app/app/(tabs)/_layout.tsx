@@ -1,9 +1,14 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { NativeTabs, Icon, Label, VectorIcon } from 'expo-router/unstable-native-tabs';
-import { Platform } from 'react-native';
+import { Platform, ActivityIndicator, View } from 'react-native';
+import { useAuth } from '@beautyswapp/medusa-client/hooks/useAuth';
+import { Redirect } from 'expo-router';
 
 export default function TabLayout() {
-  return (
+  const { user, loading } = useAuth();
+
+  // Toujours appeler tous les hooks AVANT tout return conditionnel
+  const content = (
     <NativeTabs>
       <NativeTabs.Trigger name="index">
         <Label>Home</Label>
@@ -38,4 +43,19 @@ export default function TabLayout() {
       </NativeTabs.Trigger>
     </NativeTabs>
   );
+
+  // Return conditionnel APRÈS que tous les hooks soient appelés
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
+    );
+  }
+
+  if (!user) {
+    return <Redirect href="/login" />;
+  }
+
+  return content;
 }

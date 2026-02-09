@@ -22,8 +22,11 @@ export default function RootLayout() {
       <TamaguiProvider config={config} defaultTheme="light">
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <Stack>
+            <Stack.Screen name="login" options={{ headerShown: false }} />
+            <Stack.Screen name="register" options={{ headerShown: false }} />
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+            <Stack.Screen name="products/[id]" options={{ title: 'Produit' }} />
           </Stack>
           <StatusBar style="auto" />
         </ThemeProvider>
