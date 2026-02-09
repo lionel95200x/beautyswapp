@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { YStack, Heading, Text, Input, ScrollView, Card, Spinner, XStack } from 'tamagui';
+import { YStack, Heading, Text, Input, ScrollView, Spinner, XStack } from 'tamagui';
 import { useProducts } from '@beautyswapp/medusa-client/hooks/useProducts';
-import { Link } from 'expo-router';
+import { ProductGrid } from '../../components/ProductGrid';
 
 export default function SearchScreen() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -13,7 +13,7 @@ export default function SearchScreen() {
   );
 
   return (
-    <YStack flex={1} backgroundColor="$background">
+    <YStack flex={1} >
       <YStack padding="$4" paddingTop="$8" paddingBottom="$3" backgroundColor="$background">
         <Heading size="$8" color="$color" marginBottom="$2">
           Search
@@ -58,42 +58,15 @@ export default function SearchScreen() {
                 </Text>
               </XStack>
 
-              <YStack gap="$3">
-                {filteredProducts?.map((product) => (
-                  <Link key={product.id} href={`/products/${product.id}`} asChild>
-                    <Card
-                      elevation="$2"
-                      padding="$4"
-                      backgroundColor="$backgroundHover"
-                      borderRadius="$4"
-                      borderWidth="$0.5"
-                      borderColor="$borderColor"
-                      pressStyle={{ opacity: 0.8 }}
-                      cursor="pointer"
-                    >
-                      <Heading size="$6" marginBottom="$2" color="$color">
-                        {product.title}
-                      </Heading>
-                      <Text fontSize="$3" color="$gray11" marginBottom="$2" numberOfLines={2}>
-                        {product.description}
-                      </Text>
-                      <Text fontSize="$5" fontWeight="600" color="$color">
-                        {product.variants?.[0]?.calculated_price?.calculated_amount
-                          ? `${product.variants[0].calculated_price.calculated_amount} ${product.variants[0].calculated_price.currency_code}`
-                          : 'Price not available'}
-                      </Text>
-                    </Card>
-                  </Link>
-                ))}
-              </YStack>
-
-              {filteredProducts?.length === 0 && searchQuery && (
+              {filteredProducts && filteredProducts.length > 0 ? (
+                <ProductGrid products={filteredProducts} />
+              ) : searchQuery ? (
                 <YStack paddingVertical="$8" alignItems="center">
                   <Text fontSize="$4" color="$gray10">
                     No products found for "{searchQuery}"
                   </Text>
                 </YStack>
-              )}
+              ) : null}
             </>
           )}
         </YStack>

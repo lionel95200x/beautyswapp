@@ -1,40 +1,20 @@
 import { YStack, Heading, Text, Card, XStack, Button, ScrollView } from 'tamagui';
+import { Categories } from '../../components/Categories';
+import { FeaturedProducts } from '../../components/FeaturedProducts';
+import { PrimaryButton } from '@/components/ui/button';
 
 export default function HomeScreen() {
   return (
     <ScrollView>
-      <YStack flex={1} padding="$4" backgroundColor="$background">
-        <YStack paddingTop="$8" paddingBottom="$4">
-          <Heading size="$9" color="$color">
-            Welcome to Beautyswapp
-          </Heading>
-          <Text color="$gray10" marginTop="$2" fontSize="$4">
-            Discover, share, and swap beauty products
-          </Text>
-        </YStack>
+      <YStack flex={1} padding="$4" >
+
 
         <YStack gap="$4" marginTop="$4">
-          <Card
-            elevation="$2"
-            size="$4"
-            borderWidth="$0.5"
-            borderColor="$borderColor"
-            padding="$4"
-            backgroundColor="$backgroundHover"
-          >
-            <Card.Header>
-              <Heading size="$6" color="$color">
-                Featured Products
-              </Heading>
-            </Card.Header>
-            <Text color="$gray11" marginTop="$2">
-              Explore the latest beauty products from our community
-            </Text>
-            <Button marginTop="$4">
-              Browse Products
-            </Button>
-          </Card>
-
+          <Categories />
+          <PrimaryButton>
+            Commencer
+          </PrimaryButton>
+          <FeaturedProducts />
           <Card
             elevation="$2"
             size="$4"
