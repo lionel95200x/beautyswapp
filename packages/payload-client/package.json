@@ -1,0 +1,21 @@
+{
+  "name": "@beautyswapp/payload-client",
+  "version": "1.0.0",
+  "private": true,
+  "exports": {
+    "./types": "./src/types.ts",
+    "./client": "./src/client.ts",
+    "./config": "./src/config.ts",
+    "./utils": "./src/utils.ts",
+    "./hooks/useProducts": "./src/hooks/useProducts.ts",
+    "./hooks/useCategories": "./src/hooks/useCategories.ts",
+    "./hooks/useProductBySlug": "./src/hooks/useProductBySlug.ts"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.62.11"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2"
+  }
+}

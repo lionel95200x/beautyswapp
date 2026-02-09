@@ -1,6 +1,6 @@
 import { YStack, Text, XStack, ScrollView, Image } from 'tamagui'
 import { SectionHeader } from './SectionHeader'
-import { useCategories } from '@/hooks/useCategories'
+import { useCategories, getMediaUrl, type Media } from '@beautyswapp/payload-client'
 
 export function Categories() {
   const { data: categoriesData, isLoading } = useCategories()
@@ -18,36 +18,41 @@ export function Categories() {
       ) : (
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <XStack gap="$3" paddingRight="$4">
-            {categories?.map((category) => (
-              <YStack
-                key={category.id}
-                gap="$2"
-                alignItems="center"
-                width={100}
-                pressStyle={{ opacity: 0.7 }}
-                animation="quick"
-              >
-                <Image
-                  src={
-                    category.image?.fullUrl
-                      ? { uri: category.image.fullUrl }
-                      : require('../assets/images/category/category-mock.jpg')
-                  }
-                  width={80}
-                  height={80}
-                  borderRadius={12}
-                />
-                <Text
-                  fontSize="$3"
-                  fontWeight="600"
-                  color="$color"
-                  textAlign="center"
-                  numberOfLines={2}
+            {categories?.map((category) => {
+              const image = category.image as Media | undefined
+              const imageUrl = image?.url ? getMediaUrl(image.url) : null
+
+              return (
+                <YStack
+                  key={category.id}
+                  gap="$2"
+                  alignItems="center"
+                  width={100}
+                  pressStyle={{ opacity: 0.7 }}
+                  animation="quick"
                 >
-                  {category.title}
-                </Text>
-              </YStack>
-            ))}
+                  <Image
+                    src={
+                      imageUrl
+                        ? { uri: imageUrl }
+                        : require('../assets/images/category/category-mock.jpg')
+                    }
+                    width={80}
+                    height={80}
+                    borderRadius={12}
+                  />
+                  <Text
+                    fontSize="$3"
+                    fontWeight="600"
+                    color="$color"
+                    textAlign="center"
+                    numberOfLines={2}
+                  >
+                    {category.title}
+                  </Text>
+                </YStack>
+              )
+            })}
           </XStack>
         </ScrollView>
       )}

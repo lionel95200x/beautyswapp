@@ -5,7 +5,7 @@ import { useProducts } from '@/hooks/useProducts'
 
 export function FeaturedProducts() {
   const { data: productsData, isLoading, error } = useProducts()
-  const products = productsData?.products
+  const products = productsData?.docs
   const hasProducts = products && products.length > 0
 
   return (

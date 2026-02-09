@@ -1,15 +1,14 @@
 import { useState } from 'react';
 import { YStack, Heading, Text, Input, ScrollView, Spinner, XStack } from 'tamagui';
 import { ProductGrid } from '../../components/ProductGrid';
-import { useProducts } from '@/hooks/useProducts';
+import { useProducts } from '@beautyswapp/payload-client';
 
 export default function SearchScreen() {
   const [searchQuery, setSearchQuery] = useState('');
   const { data, isLoading, error } = useProducts();
 
-  const filteredProducts = data?.products?.filter((product) =>
-    product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    product.description?.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredProducts = data?.docs?.filter((product) =>
+    product.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -63,7 +62,7 @@ export default function SearchScreen() {
               ) : searchQuery ? (
                 <YStack paddingVertical="$8" alignItems="center">
                   <Text fontSize="$4" color="$gray10">
-                    No products found for "{searchQuery}"
+                    Pas de produit trouvé pour "{searchQuery}"
                   </Text>
                 </YStack>
               ) : null}

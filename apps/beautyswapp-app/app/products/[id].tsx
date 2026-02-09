@@ -1,12 +1,12 @@
-import { useProducts } from '@/hooks/useProducts';
 import { useLocalSearchParams, Stack } from 'expo-router';
 import { YStack, XStack, Heading, Text, Button, ScrollView, Avatar, Card, Image } from 'tamagui';
+import { useProducts, getMediaUrl, type Media, type User } from '@beautyswapp/payload-client';
 
 export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { data } = useProducts();
 
-  const product = data?.products?.find((p) => p.id === id);
+  const product = data?.docs?.find((p) => p.id.toString() === id);
 
   if (!product) {
     return (
@@ -17,6 +17,10 @@ export default function ProductDetailScreen() {
       </YStack>
     );
   }
+
+  const firstImage = product.gallery?.[0]?.image as Media | undefined;
+  const imageUrl = firstImage?.url ? getMediaUrl(firstImage.url) : null;
+  const seller = product.seller as User;
 
   return (
     <>
@@ -30,9 +34,9 @@ export default function ProductDetailScreen() {
         <YStack flex={1}>
           {/* Product Image */}
           <YStack height={400} background="$background" justifyContent="center" alignItems="center">
-            {product.thumbnail ? (
+            {imageUrl ? (
               <Image
-                src={product.thumbnail}
+                src={{ uri: imageUrl }}
                 width={300}
                 height={300}
               />
@@ -60,20 +64,17 @@ export default function ProductDetailScreen() {
               </Heading>
               <XStack gap="$2" alignItems="center">
                 <Avatar circular size="$3">
-                  <Avatar.Image src="https://picsum.photos/100" />
                   <Avatar.Fallback backgroundColor="$secondary" />
                 </Avatar>
                 <Text fontSize="$3" color="$gray10">
-                  Nom du vendeur
+                  {seller?.name ? seller.name : seller?.email}
                 </Text>
               </XStack>
             </YStack>
 
             {/* Price */}
-            <Heading size="$7" color="$color">
-              {product.variants?.[0]?.calculated_price?.calculated_amount
-                ? `${product.variants[0].calculated_price.calculated_amount} ${product.variants[0].calculated_price.currency_code}`
-                : 'Prix non disponible'}
+            <Heading size="$7" color="$accent">
+              {product.priceInUSD ? `${(product.priceInUSD / 100).toFixed(2)} €` : 'Prix sur demande'}
             </Heading>
 
             {/* Description */}
@@ -83,7 +84,7 @@ export default function ProductDetailScreen() {
                   Description du produit
                 </Text>
                 <Text fontSize="$3" color="$gray10" lineHeight="$3">
-                  {product.description}
+                  Description disponible
                 </Text>
               </YStack>
             )}
@@ -110,31 +111,6 @@ export default function ProductDetailScreen() {
                 Vous pourrez ouvrir
               </Button>
             </XStack>
-
-            {/* Product Variants or Related */}
-            {product.variants && product.variants.length > 1 && (
-              <YStack gap="$3" marginTop="$4">
-                <Text fontSize="$4" fontWeight="600" color="$color">
-                  Variantes
-                </Text>
-                <XStack gap="$3">
-                  {product.variants.slice(0, 3).map((variant) => (
-                    <Card
-                      key={variant.id}
-                      flex={1}
-                      padding="$3"
-                      backgroundColor="$backgroundHover"
-                      borderWidth="$0.5"
-                      borderColor="$borderColor"
-                    >
-                      <Text fontSize="$2" color="$gray10" numberOfLines={2}>
-                        {variant.title}
-                      </Text>
-                    </Card>
-                  ))}
-                </XStack>
-              </YStack>
-            )}
           </YStack>
         </YStack>
       </ScrollView>

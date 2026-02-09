@@ -1,17 +1,25 @@
 import { YStack, Text, Image } from 'tamagui'
+import { getMediaUrl, type Product, type Category, type Media } from '@beautyswapp/payload-client'
 
 interface ProductCardProps {
-  product: any
+  product: Product
   width?: number | string
 }
 
 export function ProductCard({ product, width }: ProductCardProps) {
+  const firstImage = product.gallery?.[0]?.image as Media | undefined
+  const firstCategory = Array.isArray(product.categories)
+    ? (product.categories[0] as Category | undefined)
+    : (product.categories as Category | undefined)
+
+  const imageUrl = firstImage?.url ? getMediaUrl(firstImage.url) : null
+
   return (
     <YStack gap="$2" width={width || '100%'}>
       <Image
         src={
-          product.thumbnail
-            ? { uri: product.thumbnail }
+          imageUrl
+            ? { uri: imageUrl }
             : require('../assets/images/product/product-mock.png')
         }
         width="100%"
@@ -19,19 +27,16 @@ export function ProductCard({ product, width }: ProductCardProps) {
         borderRadius={12}
       />
       <YStack gap="$1">
-        <Text fontSize="$2" color="$gray10" fontWeight="600">
-          {product.collection?.title}
-        </Text>
+        {firstCategory && (
+          <Text fontSize="$2" color="$gray10" fontWeight="600">
+            {firstCategory.title}
+          </Text>
+        )}
         <Text fontSize="$4" fontWeight="600" color="$color" numberOfLines={2}>
           {product.title}
         </Text>
-        <Text fontSize="$3" color="$gray11">
-          {product.vendor}
-        </Text>
         <Text fontSize="$5" fontWeight="bold" color="$accent">
-          {product.variants?.[0]?.calculated_price?.calculated_amount
-            ? `${(product.variants[0].calculated_price.calculated_amount / 100).toFixed(2)} €`
-            : product._mockPriceLabel}
+          {product.priceInUSD ? `${(product.priceInUSD / 100).toFixed(2)} €` : 'Prix sur demande'}
         </Text>
       </YStack>
     </YStack>
