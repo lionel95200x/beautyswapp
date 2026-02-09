@@ -24,7 +24,7 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
   ...defaultCollection,
   admin: {
     ...defaultCollection?.admin,
-    defaultColumns: ['title', 'enableVariants', '_status', 'variants.variants'],
+    defaultColumns: ['title', 'seller', 'priceInUSD', '_status'],
     livePreview: {
       url: ({ data, req }) =>
         generatePreviewPath({
@@ -143,6 +143,26 @@ export const ProductsCollection: CollectionOverride = ({ defaultCollection }) =>
         {
           fields: [
             ...defaultCollection.fields,
+            {
+              name: 'seller',
+              type: 'relationship',
+              relationTo: 'users',
+              required: true,
+              admin: {
+                position: 'sidebar',
+                description: 'Vendeur du produit',
+              },
+              hooks: {
+                beforeChange: [
+                  ({ req, value }) => {
+                    if (!value && req.user) {
+                      return req.user.id
+                    }
+                    return value
+                  },
+                ],
+              },
+            },
             {
               name: 'relatedProducts',
               type: 'relationship',

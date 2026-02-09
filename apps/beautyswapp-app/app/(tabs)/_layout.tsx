@@ -1,8 +1,8 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { NativeTabs, Icon, Label, VectorIcon } from 'expo-router/unstable-native-tabs';
 import { Platform, ActivityIndicator, View } from 'react-native';
-import { useAuth } from '@beautyswapp/medusa-client/hooks/useAuth';
 import { Redirect } from 'expo-router';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function TabLayout() {
   const { user, loading } = useAuth();

@@ -114,4 +114,3 @@ const updateProduct = useMutation({
 ## 📱 Apps Spécifiques
 
 - **beautyswapp-app** : Voir [apps/beautyswapp-app/CLAUDE.md](apps/beautyswapp-app/CLAUDE.md) pour les règles Tamagui et Expo
-- **beautyswapp** : Backend Medusa (règles spécifiques à venir)

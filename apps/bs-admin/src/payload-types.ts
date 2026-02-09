@@ -295,6 +295,10 @@ export interface Product {
   };
   priceInUSDEnabled?: boolean | null;
   priceInUSD?: number | null;
+  /**
+   * Vendeur du produit
+   */
+  seller: number | User;
   relatedProducts?: (number | Product)[] | null;
   meta?: {
     title?: string | null;
@@ -595,6 +599,10 @@ export interface ArchiveBlock {
 export interface Category {
   id: number;
   title: string;
+  /**
+   * Image de la catégorie
+   */
+  image?: (number | null) | Media;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
@@ -1360,6 +1368,7 @@ export interface FormBlockSelect<T extends boolean = true> {
  */
 export interface CategoriesSelect<T extends boolean = true> {
   title?: T;
+  image?: T;
   generateSlug?: T;
   slug?: T;
   updatedAt?: T;
@@ -1621,6 +1630,7 @@ export interface ProductsSelect<T extends boolean = true> {
   variants?: T;
   priceInUSDEnabled?: T;
   priceInUSD?: T;
+  seller?: T;
   relatedProducts?: T;
   meta?:
     | T

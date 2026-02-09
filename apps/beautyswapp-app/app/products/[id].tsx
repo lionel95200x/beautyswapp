@@ -1,6 +1,6 @@
+import { useProducts } from '@/hooks/useProducts';
 import { useLocalSearchParams, Stack } from 'expo-router';
 import { YStack, XStack, Heading, Text, Button, ScrollView, Avatar, Card, Image } from 'tamagui';
-import { useProducts } from '@beautyswapp/medusa-client/hooks/useProducts';
 
 export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();

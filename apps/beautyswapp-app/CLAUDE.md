@@ -108,12 +108,6 @@ import { Ionicons } from '@expo/vector-icons'
 - Définir dans `.env` à la racine de l'app (ignoré par git)
 - Documenter dans `.env.example` (versionné)
 
-**Variables requises:**
-```bash
-EXPO_PUBLIC_MEDUSA_BACKEND_URL=http://localhost:9000
-EXPO_PUBLIC_MEDUSA_PUBLISHABLE_KEY=pk_test
-```
-
 **❌ INTERDIT (violation règle no-fallback):**
 ```ts
 const url = process.env.EXPO_PUBLIC_API_URL || 'http://localhost'
@@ -125,14 +119,3 @@ const url = process.env.EXPO_PUBLIC_API_URL
 if (!url) {
   throw new Error('EXPO_PUBLIC_API_URL is required')
 }
-```
-
-**Utilisation du client Medusa:**
-```tsx
-// ✅ Utiliser le client partagé (compatible Next.js + Expo)
-import { sdk } from '@beautyswapp/medusa-client'
-
-// Le client détecte automatiquement l'environnement:
-// - Next.js → utilise NEXT_PUBLIC_*
-// - Expo → utilise EXPO_PUBLIC_*
-```

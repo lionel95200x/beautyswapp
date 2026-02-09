@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query'
-import { sdk } from '../client'
 
 // 🎭 MOCK DATA - Supprimer cette section en production
 const MOCK_USER = {
@@ -16,10 +15,10 @@ export const useCurrentUser = () => {
   return useQuery({
     queryKey: ['current-user'],
     queryFn: async () => {
-      const response = await sdk.store.customer.retrieve()
+      const response = MOCK_USER // 🎭 MOCK - À supprimer en production
 
       // 🎭 MOCK: Enrichir avec des données de démo si pas connecté
-      if (!response.customer) {
+      if (!response?.customer) {
         return MOCK_USER // 🎭 MOCK - À supprimer en production
       }
 

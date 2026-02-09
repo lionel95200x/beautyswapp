@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query'
-import { sdk } from '../client'
 
 // 🎭 MOCK DATA - Supprimer cette section en production
 const MOCK_VENDOR = '@demovendeur'
@@ -10,7 +9,7 @@ export const useProducts = () => {
   return useQuery({
     queryKey: ['products'],
     queryFn: async () => {
-      const response = await sdk.store.product.list()
+      const response = { products: [{ collection: '', title: 'Produit Mock', description: '' },] }
 
       // 🎭 MOCK: Enrichir les produits avec les données mock
       const productsWithMock = {

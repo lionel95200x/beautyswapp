@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { Alert } from 'react-native';
-import { useAuth } from '@beautyswapp/medusa-client/hooks/useAuth';
 import { AuthLayout } from './auth-layout';
 import { AuthField } from './auth-fields';
+import { useAuth } from '@/hooks/useAuth';
 
 export function LoginForm() {
   const [email, setEmail] = useState('');

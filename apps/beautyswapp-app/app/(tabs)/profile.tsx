@@ -1,9 +1,9 @@
 import { YStack, Heading, Text, Button, ScrollView, Avatar, XStack } from 'tamagui';
 import { useRouter } from 'expo-router';
-import { useAuth } from '@beautyswapp/medusa-client/hooks/useAuth';
-import { useCurrentUser } from '@beautyswapp/medusa-client/hooks/useCurrentUser';
 import { PrimaryButton } from '@/components/ui/button';
 import { SplitBackgroundLayout } from '@/components/login/split-background-layout';
+import { useCurrentUser } from '@/hooks/useCurrentUser';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function ProfileScreen() {
   const { signOut } = useAuth();

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { YStack, Heading, Text, Input, ScrollView, Spinner, XStack } from 'tamagui';
-import { useProducts } from '@beautyswapp/medusa-client/hooks/useProducts';
 import { ProductGrid } from '../../components/ProductGrid';
+import { useProducts } from '@/hooks/useProducts';
 
 export default function SearchScreen() {
   const [searchQuery, setSearchQuery] = useState('');

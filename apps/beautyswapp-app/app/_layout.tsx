@@ -5,8 +5,7 @@ import 'react-native-reanimated';
 import { TamaguiProvider } from '@tamagui/core'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import config from '../tamagui.config'
-
-const queryClient = new QueryClient()
+import { useState } from 'react'
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
 
@@ -15,6 +14,7 @@ export const unstable_settings = {
 };
 
 export default function RootLayout() {
+  const [queryClient] = useState(() => new QueryClient())
   const colorScheme = useColorScheme();
 
   return (
