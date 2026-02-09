@@ -1,35 +1,41 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { NativeTabs, Icon, Label, VectorIcon } from 'expo-router/unstable-native-tabs';
+import { Platform } from 'react-native';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
-    </Tabs>
+    <NativeTabs>
+      <NativeTabs.Trigger name="index">
+        <Label>Home</Label>
+        {Platform.select({
+          ios: <Icon sf={{ default: 'house', selected: 'house.fill' }} />,
+          android: <Icon src={<VectorIcon family={Ionicons} name="home-outline" />} />,
+        })}
+      </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger name="search">
+        <Label>Search</Label>
+        {Platform.select({
+          ios: <Icon sf={{ default: 'magnifyingglass', selected: 'magnifyingglass' }} />,
+          android: <Icon src={<VectorIcon family={Ionicons} name="search-outline" />} />,
+        })}
+      </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger name="create">
+        <Label>Create</Label>
+        {Platform.select({
+          ios: <Icon sf={{ default: 'plus.circle', selected: 'plus.circle.fill' }} />,
+          android: <Icon src={<VectorIcon family={Ionicons} name="add-circle-outline" />} />,
+        })}
+      </NativeTabs.Trigger>
+
+      <NativeTabs.Trigger name="profile">
+        <Label>Profile</Label>
+        {Platform.select({
+          ios: <Icon sf={{ default: 'person', selected: 'person.fill' }} />,
+          android: <Icon src={<VectorIcon family={Ionicons} name="person-outline" />} />,
+        })}
+      </NativeTabs.Trigger>
+    </NativeTabs>
   );
 }

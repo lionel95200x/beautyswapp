@@ -15,8 +15,12 @@
 - **Toujours utiliser les tokens du thème Tamagui** avec la syntaxe `$`
 - **Vérifier la documentation Tamagui** avant de créer un composant
 
-**Tokens Tamagui disponibles:**
-- Couleurs : `$background`, `$color`, `$borderColor`, `$backgroundHover`, etc.
+**🎨 RÈGLE CRITIQUE - Couleurs:**
+- **❌ JAMAIS inventer de couleurs** (#8e6fe8, rgb(), rgba(), etc.)
+- **✅ UNIQUEMENT les tokens définis dans tamagui.config.ts**
+- Toutes les couleurs DOIVENT provenir de `beautyswappColors`
+
+
 - Espacements : `$space.1` à `$space.12`, ou directement `$1` à `$12`
 - Tailles : `$size.1` à `$size.20`
 - Radius : `$radius.1` à `$radius.12`
@@ -24,7 +28,7 @@
 **Exemples:**
 
 ```tsx
-❌ Interdit:
+❌ INTERDIT - StyleSheet React Native:
 import { View, Text, StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
@@ -40,26 +44,36 @@ const styles = StyleSheet.create({
   <Text>Hello</Text>
 </View>
 
-❌ Interdit aussi:
+❌ INTERDIT - Styles inline:
 <View style={{ width: 200, backgroundColor: '#fff' }}>
   <Text>Hello</Text>
 </View>
 
-✅ Correct (Tamagui):
+❌ INTERDIT - Couleurs inventées:
+import { Ionicons } from '@expo/vector-icons'
+<Ionicons name="mail-outline" size={20} color="#8e6fe8" />
+<Text color="#666666">Texte gris</Text>
+
+✅ CORRECT - Composants et tokens Tamagui:
 import { View, Text } from 'tamagui'
 
 <View width={200} height={200} backgroundColor="$background" padding="$4">
   <Text color="$color">Hello</Text>
 </View>
 
-✅ Correct (avec responsive):
+✅ CORRECT - Couleurs avec tokens uniquement:
+import { Ionicons } from '@expo/vector-icons'
+<Ionicons name="mail-outline" size={20} color="$purpleText" />
+<Text color="$gray10">Texte gris</Text>
+
+✅ CORRECT - Responsive avec Tamagui:
 <View
   width={200}
   $gtSm={{ width: 400 }}
   backgroundColor="$background"
   padding="$4"
 >
-  <Text fontSize="$5" fontWeight="600">Hello</Text>
+  <Text fontSize="$5" fontWeight="600" color="$purpleText">Hello</Text>
 </View>
 ```
 
@@ -86,3 +100,39 @@ import { View, Text } from 'tamagui'
 - Utiliser Expo Router pour la navigation
 - Suivre la structure de fichiers dans `app/` pour les routes
 - Ne pas mélanger flat files et nested folders pour les routes dynamiques (voir CLAUDE.md racine)
+
+## 🔐 Variables d'Environnement
+
+**Convention Expo:**
+- Utiliser le préfixe `EXPO_PUBLIC_*` pour les variables accessibles côté client
+- Définir dans `.env` à la racine de l'app (ignoré par git)
+- Documenter dans `.env.example` (versionné)
+
+**Variables requises:**
+```bash
+EXPO_PUBLIC_MEDUSA_BACKEND_URL=http://localhost:9000
+EXPO_PUBLIC_MEDUSA_PUBLISHABLE_KEY=pk_test
+```
+
+**❌ INTERDIT (violation règle no-fallback):**
+```ts
+const url = process.env.EXPO_PUBLIC_API_URL || 'http://localhost'
+```
+
+**✅ CORRECT (fail-fast avec erreur explicite):**
+```ts
+const url = process.env.EXPO_PUBLIC_API_URL
+if (!url) {
+  throw new Error('EXPO_PUBLIC_API_URL is required')
+}
+```
+
+**Utilisation du client Medusa:**
+```tsx
+// ✅ Utiliser le client partagé (compatible Next.js + Expo)
+import { sdk } from '@beautyswapp/medusa-client'
+
+// Le client détecte automatiquement l'environnement:
+// - Next.js → utilise NEXT_PUBLIC_*
+// - Expo → utilise EXPO_PUBLIC_*
+```

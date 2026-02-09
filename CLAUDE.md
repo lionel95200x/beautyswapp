@@ -17,6 +17,19 @@
 ❌ const value = props.value ?? ''
 ```
 
+**✅ Exception valide : Multi-source sans valeur arbitraire**
+
+```typescript
+// ✅ OK : Chercher dans plusieurs sources + fail-fast si AUCUNE n'existe
+const url = process.env.NEXT_PUBLIC_API_URL || process.env.EXPO_PUBLIC_API_URL
+if (!url) {
+  throw new Error('API_URL required (NEXT_PUBLIC_API_URL or EXPO_PUBLIC_API_URL)')
+}
+
+// ❌ INTERDIT : Fallback sur valeur arbitraire
+const url = process.env.API_URL || 'http://localhost:3000'
+```
+
 ## 📦 Imports/Exports
 
 **❌ JAMAIS de barrel exports (index.ts qui ré-exporte)**
