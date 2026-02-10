@@ -1,3 +1,4 @@
+import { PrimaryButton } from '@/components/ui/button';
 import { YStack, Heading, Text, Button, ScrollView } from 'tamagui';
 
 export default function CreateScreen() {
@@ -8,6 +9,9 @@ export default function CreateScreen() {
           Create
         </Heading>
 
+        <PrimaryButton>
+          Ajouter le produit
+        </PrimaryButton>
       </YStack>
     </ScrollView>
   );

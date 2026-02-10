@@ -1,17 +1,37 @@
 # BeautySwapp Monorepo
 
-Monorepo pnpm pour le projet BeautySwapp.
+Monorepo pnpm pour le projet BeautySwapp - Marketplace de produits de beauté d'occasion.
+
+## Stack Technique
+
+### Backend (bs-admin)
+- **CMS :** Payload CMS 3.75
+- **Framework :** Next.js 15.4
+- **Database :** PostgreSQL (via @payloadcms/db-postgres)
+- **API :** REST + GraphQL (auto-généré par Payload)
+- **Auth :** JWT Payload intégré
+- **Storage :** Payload Media Collection
+- **Payment :** Stripe
+
+### App Mobile (beautyswapp-app)
+- **Framework :** Expo 54 + React Native 0.81
+- **UI :** Tamagui 2.0
+- **Routing :** Expo Router 6.0
+- **State :** TanStack Query 5.90
+- **API Client :** @beautyswapp/payload-client (SDK custom)
+
+### Packages
+- **@beautyswapp/payload-client :** SDK TypeScript pour communiquer avec Payload CMS API
 
 ## Structure
 
 ```
 beautyswapp/
 ├── apps/
-│   ├── beautyswapp/    # Application principale
-│   └── admin/          # Application admin
+│   ├── beautyswapp-app/   # Application mobile Expo
+│   └── bs-admin/          # Backend Payload CMS + Admin
 └── packages/
-    ├── domain/         # Logique métier partagée
-    └── auth/           # Module d'authentification
+    └── payload-client/    # SDK API Payload
 ```
 
 ## Installation
