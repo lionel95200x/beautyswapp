@@ -1,6 +1,6 @@
 import { YStack, Heading, Text, Button, ScrollView, Avatar, XStack } from 'tamagui';
 import { useRouter } from 'expo-router';
-import { PrimaryButton } from '@/components/ui/button';
+import { PrimaryButton, SecondaryButton } from '@/components/ui/button';
 import { SplitBackgroundLayout } from '@/components/login/split-background-layout';
 import { useCurrentUser } from '@/hooks/useCurrentUser';
 import { useAuth } from '@/hooks/useAuth';
@@ -52,17 +52,22 @@ export default function ProfileScreen() {
           Mes Favoris
         </PrimaryButton>
 
-        <PrimaryButton>
+        <PrimaryButton onPress={() => router.push('/vanity')}>
           Mon vanity
         </PrimaryButton>
 
-        <Button
-          size="$5"
-          theme="red"
+        <SecondaryButton>
+          Tout savoir sur BeautySwapp
+        </SecondaryButton>
+        <SecondaryButton>
+          Besoin d'aide ?
+        </SecondaryButton>
+        <SecondaryButton
+
           onPress={handleSignOut}
         >
           Se déconnecter
-        </Button>
+        </SecondaryButton>
       </YStack>
     </SplitBackgroundLayout>
   );

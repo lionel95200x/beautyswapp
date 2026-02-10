@@ -45,6 +45,13 @@ export async function getProducts(depth: number): Promise<PayloadProductsRespons
 }
 
 /**
+ * Récupère un produit par son ID
+ */
+export async function getProductById(id: string, depth: number): Promise<Product> {
+  return request<Product>(`/api/products/${id}?depth=${depth}`)
+}
+
+/**
  * Récupère un produit par son slug
  */
 export async function getProductBySlug(slug: string, depth: number): Promise<Product> {

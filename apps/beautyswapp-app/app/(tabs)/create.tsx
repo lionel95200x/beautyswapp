@@ -117,8 +117,8 @@ export default function CreateScreen() {
   return (
     <ScrollView>
       <YStack flex={1} p="$4" bg="$background" gap="$4">
-        <Heading size="$8" color="$color">
-          Create
+        <Heading size="$8" color="$secondaryPurple">
+          VENDS TON PRODUIT !
         </Heading>
 
         <Subtitle>PHOTOS</Subtitle>

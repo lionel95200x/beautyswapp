@@ -8,6 +8,7 @@ const beautyswappColors = {
   secondary: '#8B7EC8',   // Violet
   secondaryPurple: '#f2a5f0',
   accent: '#F4A261',      // Orange
+  orangeButton: '#E9752A',
   background: '#E8D9F5',  // Violet clair
   backgroundHover: '#FFFFFF', // Blanc
   color: '#1A1A1A',       // Noir

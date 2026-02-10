@@ -169,10 +169,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (loading) return
 
     const inAuthGroup = segments[0] === '(tabs)'
+    const inProductsRoute = segments[0] === 'products'
 
     if (!user && inAuthGroup) {
       router.replace('/login')
-    } else if (user && !inAuthGroup) {
+    } else if (user && !inAuthGroup && !inProductsRoute) {
       router.replace('/(tabs)')
     }
   }, [user, loading, segments])

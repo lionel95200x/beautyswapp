@@ -1,20 +1,43 @@
 import { useLocalSearchParams, Stack } from 'expo-router';
-import { YStack, XStack, Heading, Text, Button, ScrollView, Avatar, Card, Image } from 'tamagui';
-import { useProducts } from '@beautyswapp/payload-client/hooks/useProducts';
+import { YStack, XStack, Heading, Text, Button, ScrollView, Avatar, Spinner, Image } from 'tamagui';
+import { useProduct } from '@beautyswapp/payload-client/hooks/useProducts';
 import { getMediaUrl } from '@beautyswapp/payload-client/utils';
 import type { Media, User } from '@beautyswapp/payload-client/types';
+import { PrimaryButton, SecondaryButton } from '@/components/ui/button';
+import { Badge } from '@/components/ui/Badge';
 
 export default function ProductDetailScreen() {
-  const { id } = useLocalSearchParams<{ id: string }>();
-  const { data } = useProducts();
+  const params = useLocalSearchParams<{ id: string }>();
+  const { id } = params;
 
-  const product = data?.docs?.find((p) => p.id.toString() === id);
+  const { data: product, isLoading, error } = useProduct(id);
+
+  if (isLoading) {
+    return (
+      <YStack flex={1} justifyContent="center" alignItems="center" paddingVertical="$8">
+        <Spinner size="large" color="$color" />
+        <Text marginTop="$4" fontSize="$4" color="$gray10">
+          Chargement du produit...
+        </Text>
+      </YStack>
+    );
+  }
+
+  if (error) {
+    return (
+      <YStack flex={1} justifyContent="center" alignItems="center" paddingVertical="$8">
+        <Text fontSize="$5" color="$red10">
+          Erreur: {error.message}
+        </Text>
+      </YStack>
+    );
+  }
 
   if (!product) {
     return (
-      <YStack flex={1} justifyContent="center" alignItems="center" backgroundColor="$background">
+      <YStack flex={1} justifyContent="center" alignItems="center" paddingVertical="$8">
         <Text fontSize="$5" color="$color">
-          Product not found
+          Produit introuvable
         </Text>
       </YStack>
     );
@@ -68,16 +91,26 @@ export default function ProductDetailScreen() {
                 <Avatar circular size="$3">
                   <Avatar.Fallback backgroundColor="$secondary" />
                 </Avatar>
-                <Text fontSize="$3" color="$gray10">
-                  {seller?.name ? seller.name : seller?.email}
-                </Text>
+                <YStack gap="$2">
+                  {seller?.name && (
+                    <Text fontSize="$3" color="$gray10">
+                      {seller.name}
+                    </Text>
+                  )}
+                  <XStack gap="$2">
+                    <Badge text="Profil vérifié" />
+                    <Badge text="Swappeuse or" />
+                  </XStack>
+                </YStack>
               </XStack>
             </YStack>
 
             {/* Price */}
-            <Heading size="$7" color="$accent">
-              {product.priceInUSD ? `${(product.priceInUSD / 100).toFixed(2)} €` : 'Prix sur demande'}
-            </Heading>
+            {product.priceInUSD && (
+              <Heading size="$7" color="$accent">
+                {`${(product.priceInUSD / 100).toFixed(2)} €`}
+              </Heading>
+            )}
 
             {/* Description */}
             {product.description && (
@@ -86,24 +119,24 @@ export default function ProductDetailScreen() {
                   Description du produit
                 </Text>
                 <Text fontSize="$3" color="$gray10" lineHeight="$3">
-                  Description disponible
+                  {product.description}
                 </Text>
               </YStack>
             )}
 
             {/* Action Buttons */}
             <YStack gap="$3">
-              <Button size="$5" backgroundColor="$primary" color="white">
+              <PrimaryButton size="$5">
                 Acheter
-              </Button>
-              <Button size="$5" backgroundColor="$secondary" color="white">
+              </PrimaryButton>
+              <SecondaryButton >
                 Message
-              </Button>
-              <Button size="$5" backgroundColor="$accent" color="white">
-                Faire une offre
-              </Button>
+              </SecondaryButton>
             </YStack>
 
+            <Text fontSize="$3" color="$purpleText" paddingVertical="$2">
+              Le droit de rétractation  conformément l’article
+            </Text>
             {/* Additional Actions */}
             <XStack gap="$3">
               <Button flex={1} backgroundColor="$accent" color="white">
@@ -115,7 +148,7 @@ export default function ProductDetailScreen() {
             </XStack>
           </YStack>
         </YStack>
-      </ScrollView>
+      </ScrollView >
     </>
   );
 }

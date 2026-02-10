@@ -1,6 +1,7 @@
 import { YStack, Heading, Text, Card, XStack, Button, ScrollView } from 'tamagui';
 import { Categories } from '../../components/Categories';
 import { FeaturedProducts } from '../../components/FeaturedProducts';
+import { ImageBanner } from '../../components/ImageBanner';
 import { PrimaryButton } from '@/components/ui/button';
 
 export default function HomeScreen() {
@@ -15,26 +16,12 @@ export default function HomeScreen() {
             Commencer
           </PrimaryButton>
           <FeaturedProducts />
-          <Card
-            elevation="$2"
-            size="$4"
-            borderWidth="$0.5"
-            borderColor="$borderColor"
-            padding="$4"
-            backgroundColor="$backgroundHover"
-          >
-            <Card.Header>
-              <Heading size="$6" color="$color">
-                Swap with Friends
-              </Heading>
-            </Card.Header>
-            <Text color="$gray11" marginTop="$2">
-              Exchange beauty products with people nearby
-            </Text>
-            <Button marginTop="$4">
-              Start Swapping
-            </Button>
-          </Card>
+
+          <ImageBanner
+            title="OFFRES SPÉCIALES"
+            subtitle="Découvrez les derniers produits beauté"
+            image={require('../../assets/images/product/product-nouveaute-separateur.png')}
+          />
 
           <Card
             elevation="$2"

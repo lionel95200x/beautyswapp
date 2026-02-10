@@ -7,7 +7,6 @@ import { useAuth } from '@/hooks/useAuth';
 export default function TabLayout() {
   const { user, loading } = useAuth();
 
-  console.log('User in TabLayout:', user);
   // Toujours appeler tous les hooks AVANT tout return conditionnel
   const content = (
     <NativeTabs>

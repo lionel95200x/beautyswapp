@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { getProducts, uploadMedia, createProduct } from '../client'
+import { getProducts, getProductById, uploadMedia, createProduct } from '../client'
 import type { UploadFile, CreateProductPayload } from '../upload-types'
 
 /**
@@ -9,6 +9,17 @@ export const useProducts = () => {
   return useQuery({
     queryKey: ['payload', 'products'],
     queryFn: () => getProducts(2),
+  })
+}
+
+/**
+ * Hook pour récupérer un produit par son ID
+ */
+export const useProduct = (id: string) => {
+  return useQuery({
+    queryKey: ['payload', 'product', id],
+    queryFn: () => getProductById(id, 2),
+    enabled: !!id,
   })
 }
 
