@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { payloadClient } from '../client'
+import { getProductBySlug } from '../client'
 
 /**
  * Hook pour récupérer un produit Payload par son slug
@@ -7,7 +7,7 @@ import { payloadClient } from '../client'
 export const useProductBySlug = (slug: string) => {
   return useQuery({
     queryKey: ['payload', 'products', slug],
-    queryFn: () => payloadClient.getProductBySlug(slug),
+    queryFn: () => getProductBySlug(slug, 1),
     enabled: !!slug,
   })
 }

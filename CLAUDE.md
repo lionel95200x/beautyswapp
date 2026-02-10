@@ -111,6 +111,38 @@ const updateProduct = useMutation({
 })
 ```
 
+## 🏗️ Architecture
+
+**❌ JAMAIS de classes**
+- Toujours utiliser des fonctions pures
+- Pas de `class`, pas de `new`, pas de `this`
+- Pas de classes pour les clients API, services, repositories
+
+**Exemples:**
+
+```typescript
+❌ Interdit (classe):
+export class PayloadClient {
+  private baseURL: string
+  constructor(baseURL: string) {
+    this.baseURL = baseURL
+  }
+  async getProducts() { }
+}
+export const payloadClient = new PayloadClient()
+
+✅ Correct (fonctions pures):
+export async function getProducts() {
+  const response = await fetch(`${PAYLOAD_API_URL}/api/products`)
+  return response.json()
+}
+
+export async function getProductBySlug(slug: string) {
+  const response = await fetch(`${PAYLOAD_API_URL}/api/products?where[slug][equals]=${slug}`)
+  return response.json()
+}
+```
+
 ## 📱 Apps Spécifiques
 
 - **beautyswapp-app** : Voir [apps/beautyswapp-app/CLAUDE.md](apps/beautyswapp-app/CLAUDE.md) pour les règles Tamagui et Expo

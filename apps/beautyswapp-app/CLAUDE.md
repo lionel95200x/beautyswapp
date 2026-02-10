@@ -15,6 +15,55 @@
 - **Toujours utiliser les tokens du thème Tamagui** avec la syntaxe `$`
 - **Vérifier la documentation Tamagui** avant de créer un composant
 
+**🚨 RÈGLE CRITIQUE - Composants et Features Natives:**
+
+**AVANT d'utiliser un composant React Native ou une librairie externe:**
+1. ✅ **Vérifier si Tamagui a une alternative native**
+2. ✅ **Consulter la doc Tamagui pour les features intégrées** (animations, gestures, etc.)
+3. ❌ **Ne JAMAIS utiliser React Native directement si Tamagui fournit l'équivalent**
+4. ❌ **Ne JAMAIS utiliser de librairie externe si Tamagui a la feature native**
+
+**Exemples:**
+
+```tsx
+❌ INTERDIT - React Native View/Animated au lieu de Tamagui:
+import { View, Animated } from 'react-native'
+import Reanimated from 'react-native-reanimated'
+
+// N'utilise pas les composants React Native de base
+<View style={{ width: 200 }}>
+  <Animated.View>...</Animated.View>
+</View>
+
+❌ INTERDIT - Librairie d'animation externe:
+import Reanimated, { useAnimatedStyle } from 'react-native-reanimated'
+
+// Tamagui a son propre système d'animation intégré
+
+✅ CORRECT - Composants Tamagui avec animations natives:
+import { YStack } from 'tamagui'
+
+<YStack
+  width={200}
+  animation="quick"
+  opacity={opacity}
+>
+  ...
+</YStack>
+
+✅ CORRECT - Features natives Tamagui:
+// Animations: animation="quick" | "bouncy" | "lazy"
+// Themes: theme="light" | "dark"
+// Responsive: $sm, $md, $lg, $gtSm, $gtMd, etc.
+// Variants: size, variant props sur composants Tamagui
+```
+
+**Process de vérification:**
+1. 🔍 Chercher dans la [doc Tamagui](https://tamagui.dev/docs/components) le composant/feature
+2. 🔍 Vérifier les props disponibles (animation, theme, variants, etc.)
+3. ✅ Utiliser la solution Tamagui native si elle existe
+4. ❌ Seulement si AUCUNE alternative Tamagui → envisager React Native/externe
+
 **🎨 RÈGLE CRITIQUE - Couleurs:**
 - **❌ JAMAIS inventer de couleurs** (#8e6fe8, rgb(), rgba(), etc.)
 - **✅ UNIQUEMENT les tokens définis dans tamagui.config.ts**

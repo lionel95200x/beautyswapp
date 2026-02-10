@@ -4,6 +4,7 @@
   "private": true,
   "exports": {
     "./types": "./src/types.ts",
+    "./upload-types": "./src/upload-types.ts",
     "./client": "./src/client.ts",
     "./config": "./src/config.ts",
     "./utils": "./src/utils.ts",

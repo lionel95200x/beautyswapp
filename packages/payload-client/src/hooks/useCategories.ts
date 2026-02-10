@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { payloadClient } from '../client'
+import { getCategories } from '../client'
 
 /**
  * Hook pour récupérer toutes les catégories Payload
@@ -7,6 +7,6 @@ import { payloadClient } from '../client'
 export const useCategories = () => {
   return useQuery({
     queryKey: ['payload', 'categories'],
-    queryFn: () => payloadClient.getCategories(),
+    queryFn: () => getCategories(1),
   })
 }
