@@ -43,8 +43,6 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL,
     },
-    // Enable connection pooling for serverless (Vercel)
-    pooled: true,
   }),
   editor: lexicalEditor({
     features: () => {
