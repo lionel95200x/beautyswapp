@@ -1,6 +1,6 @@
 import { YStack, XStack } from 'tamagui'
 import { ProductCard } from './ProductCard'
-import type { Product } from '@beautyswapp/payload-client'
+import type { Product } from '@beautyswapp/payload-client/types'
 
 interface ProductGridProps {
   products: Product[]

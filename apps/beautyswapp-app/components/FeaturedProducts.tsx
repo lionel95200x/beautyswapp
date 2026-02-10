@@ -1,7 +1,7 @@
 import { XStack, ScrollView, Text } from 'tamagui'
 import { SectionHeader } from './SectionHeader'
 import { ProductCard } from './ProductCard'
-import { useProducts } from '@/hooks/useProducts'
+import { useProducts } from '@beautyswapp/payload-client/hooks/useProducts'
 
 export function FeaturedProducts() {
   const { data: productsData, isLoading, error } = useProducts()

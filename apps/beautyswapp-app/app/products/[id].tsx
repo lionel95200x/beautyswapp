@@ -1,6 +1,8 @@
 import { useLocalSearchParams, Stack } from 'expo-router';
 import { YStack, XStack, Heading, Text, Button, ScrollView, Avatar, Card, Image } from 'tamagui';
-import { useProducts, getMediaUrl, type Media, type User } from '@beautyswapp/payload-client';
+import { useProducts } from '@beautyswapp/payload-client/hooks/useProducts';
+import { getMediaUrl } from '@beautyswapp/payload-client/utils';
+import type { Media, User } from '@beautyswapp/payload-client/types';
 
 export default function ProductDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();

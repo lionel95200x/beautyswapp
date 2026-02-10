@@ -11,8 +11,9 @@
     "./hooks/useCategories": "./src/hooks/useCategories.ts",
     "./hooks/useProductBySlug": "./src/hooks/useProductBySlug.ts"
   },
-  "dependencies": {
-    "@tanstack/react-query": "^5.62.11"
+  "peerDependencies": {
+    "@tanstack/react-query": "^5.90.20",
+    "react": "^19.1.0"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",

@@ -1,5 +1,6 @@
 import { YStack, Text, Image } from 'tamagui'
-import { getMediaUrl, type Product, type Category, type Media } from '@beautyswapp/payload-client'
+import { getMediaUrl } from '@beautyswapp/payload-client/utils'
+import type { Product, Category, Media } from '@beautyswapp/payload-client/types'
 
 interface ProductCardProps {
   product: Product

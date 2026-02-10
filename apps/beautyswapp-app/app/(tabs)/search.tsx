@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { YStack, Heading, Text, Input, ScrollView, Spinner, XStack } from 'tamagui';
 import { ProductGrid } from '../../components/ProductGrid';
-import { useProducts } from '@beautyswapp/payload-client';
+import { useProducts } from '@beautyswapp/payload-client/hooks/useProducts';
 
 export default function SearchScreen() {
   const [searchQuery, setSearchQuery] = useState('');

@@ -1,6 +1,8 @@
 import { YStack, Text, XStack, ScrollView, Image } from 'tamagui'
 import { SectionHeader } from './SectionHeader'
-import { useCategories, getMediaUrl, type Media } from '@beautyswapp/payload-client'
+import { useCategories } from '@beautyswapp/payload-client/hooks/useCategories'
+import { getMediaUrl } from '@beautyswapp/payload-client/utils'
+import type { Media } from '@beautyswapp/payload-client/types'
 
 export function Categories() {
   const { data: categoriesData, isLoading } = useCategories()
