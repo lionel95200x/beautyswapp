@@ -11,10 +11,6 @@ import { useState } from 'react'
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { AuthProvider } from '@/contexts/AuthContext';
 
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
-
 export default function RootLayout() {
   const [queryClient] = useState(() => new QueryClient())
   const colorScheme = useColorScheme();
@@ -30,7 +26,6 @@ export default function RootLayout() {
                 <Stack.Screen name="register" options={{ headerShown: false }} />
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                 <Stack.Screen name="products/[id]" options={{ title: 'Produit' }} />
-                <Stack.Screen name="vanity" options={{ title: 'Mon vanity' }} />
                 <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
               </Stack>
               <StatusBar style="auto" />

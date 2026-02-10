@@ -1,11 +1,14 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { NativeTabs, Icon, Label, VectorIcon } from 'expo-router/unstable-native-tabs';
 import { Platform, ActivityIndicator, View } from 'react-native';
-import { Redirect } from 'expo-router';
+import { Redirect, useSegments, Slot } from 'expo-router';
 import { useAuth } from '@/hooks/useAuth';
 
 export default function TabLayout() {
   const { user, loading } = useAuth();
+  const segments = useSegments();
+
+  const isInTabs = segments[0] === '(tabs)';
 
   // Toujours appeler tous les hooks AVANT tout return conditionnel
   const content = (
@@ -55,6 +58,10 @@ export default function TabLayout() {
 
   if (!user) {
     return <Redirect href="/login" />;
+  }
+
+  if (!isInTabs) {
+    return <Slot />;
   }
 
   return content;

@@ -6,6 +6,24 @@ import type { Media, User } from '@beautyswapp/payload-client/types';
 import { PrimaryButton, SecondaryButton } from '@/components/ui/button';
 import { Badge } from '@/components/ui/Badge';
 
+function extractTextFromRichText(richText: any): string {
+  if (!richText || !richText.root || !richText.root.children) {
+    return '';
+  }
+
+  return richText.root.children
+    .map((child: any) => {
+      if (child.text) {
+        return child.text;
+      }
+      if (child.children) {
+        return child.children.map((c: any) => c.text || '').join('');
+      }
+      return '';
+    })
+    .join(' ');
+}
+
 export default function ProductDetailScreen() {
   const params = useLocalSearchParams<{ id: string }>();
   const { id } = params;
@@ -119,7 +137,7 @@ export default function ProductDetailScreen() {
                   Description du produit
                 </Text>
                 <Text fontSize="$3" color="$gray10" lineHeight="$3">
-                  {product.description}
+                  {extractTextFromRichText(product.description)}
                 </Text>
               </YStack>
             )}

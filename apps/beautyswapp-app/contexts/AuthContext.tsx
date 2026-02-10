@@ -168,12 +168,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (loading) return
 
+    const loggedRoutes = ['(tabs)', 'products', 'vanity']
     const inAuthGroup = segments[0] === '(tabs)'
-    const inProductsRoute = segments[0] === 'products'
+    const inLoggedRoute = loggedRoutes.includes(segments[0])
 
     if (!user && inAuthGroup) {
       router.replace('/login')
-    } else if (user && !inAuthGroup && !inProductsRoute) {
+    } else if (user && !inLoggedRoute) {
       router.replace('/(tabs)')
     }
   }, [user, loading, segments])
