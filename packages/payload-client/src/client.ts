@@ -1,5 +1,5 @@
 import { PAYLOAD_API_URL } from './config'
-import type { PayloadCategoriesResponse, PayloadProductsResponse, Product } from './types'
+import type { PayloadCategoriesResponse, PayloadProductsResponse, PayloadOrdersResponse, Product } from './types'
 import type {
   UploadFile,
   MediaUploadResponse,
@@ -113,4 +113,11 @@ export async function createProduct(data: CreateProductPayload): Promise<Product
     method: 'POST',
     body: JSON.stringify(data),
   })
+}
+
+/**
+ * Récupère les commandes d'un client spécifique
+ */
+export async function getOrdersByCustomer(customerId: number, depth: number): Promise<PayloadOrdersResponse> {
+  return request<PayloadOrdersResponse>(`/api/orders?where[customer][equals]=${customerId}&depth=${depth}`)
 }

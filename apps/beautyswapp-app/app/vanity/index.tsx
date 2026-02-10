@@ -6,8 +6,10 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native';
 import { ImageBanner } from '@/components/ImageBanner';
 import { ProductsGrid } from '@/components/ProductsGrid';
+import { OrdersList } from '@/components/OrdersList';
 import { Tabs } from '@/components/Tabs';
 import { useProductsBySeller } from '@beautyswapp/payload-client/hooks/useProducts';
+import { useOrdersByCustomer } from '@beautyswapp/payload-client/hooks/useOrders';
 
 export default function VanityScreen() {
   const { data: user } = useCurrentUser();
@@ -16,6 +18,9 @@ export default function VanityScreen() {
 
   const { data: productsData, isLoading, error } = useProductsBySeller(user?.id as number);
   const products = productsData?.docs;
+
+  const { data: ordersData, isLoading: ordersLoading, error: ordersError } = useOrdersByCustomer(user?.id as number);
+  const orders = ordersData?.docs;
 
   const tabs = [
     {
@@ -34,11 +39,10 @@ export default function VanityScreen() {
       id: 'purchases',
       label: 'Mes achats',
       content: (
-        <YStack flex={1} ai="center" jc="center" padding="$4">
-          <Text color="$gray10" ta="center">
-            Fonctionnalité en cours de développement
-          </Text>
-        </YStack>
+        <OrdersList
+          orders={orders}
+          emptyMessage="Aucun achat"
+        />
       ),
     },
   ];

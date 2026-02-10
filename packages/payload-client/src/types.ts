@@ -148,3 +148,86 @@ export interface PayloadProductsResponse {
   prevPage: number | null
   nextPage: number | null
 }
+
+// ====================================================================
+// Order
+// ====================================================================
+export type OrderStatus = ('processing' | 'completed' | 'cancelled' | 'refunded') | null
+
+export interface Transaction {
+  id: number
+  items?: {
+    product?: (number | null) | Product
+    variant?: (number | null) | any
+    quantity: number
+    id?: string | null
+  }[] | null
+  paymentMethod?: 'stripe' | null
+  stripe?: {
+    customerID?: string | null
+    paymentIntentID?: string | null
+  }
+  billingAddress?: {
+    title?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    company?: string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    state?: string | null
+    postalCode?: string | null
+    country?: string | null
+    phone?: string | null
+  }
+  status: 'pending' | 'succeeded' | 'failed' | 'cancelled' | 'expired' | 'refunded'
+  customer?: (number | null) | User
+  customerEmail?: string | null
+  amount?: number | null
+  currency?: 'USD' | null
+  updatedAt: string
+  createdAt: string
+}
+
+export interface Order {
+  id: number
+  items?: {
+    product?: (number | null) | Product
+    variant?: (number | null) | any
+    quantity: number
+    id?: string | null
+  }[] | null
+  shippingAddress?: {
+    title?: string | null
+    firstName?: string | null
+    lastName?: string | null
+    company?: string | null
+    addressLine1?: string | null
+    addressLine2?: string | null
+    city?: string | null
+    state?: string | null
+    postalCode?: string | null
+    country?: string | null
+    phone?: string | null
+  }
+  customer?: (number | null) | User
+  customerEmail?: string | null
+  transactions?: (number | Transaction)[] | null
+  status?: OrderStatus
+  amount?: number | null
+  currency?: 'USD' | null
+  updatedAt: string
+  createdAt: string
+}
+
+export interface PayloadOrdersResponse {
+  docs: Order[]
+  totalDocs: number
+  limit: number
+  page: number
+  totalPages: number
+  hasPrevPage: boolean
+  hasNextPage: boolean
+  prevPage: number | null
+  nextPage: number | null
+}

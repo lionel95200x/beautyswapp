@@ -143,6 +143,26 @@ export async function getProductBySlug(slug: string) {
 }
 ```
 
+## 🔄 Génération des Types Payload
+
+**❌ JAMAIS modifier manuellement les types dans `packages/payload-client/src/types.ts`**
+- Tous les types sont auto-générés depuis le schéma Payload
+- Ne pas créer ou modifier les interfaces manuellement
+
+**✅ Pour ajouter/modifier des types:**
+
+```bash
+# Aller dans le dossier admin
+cd apps/bs-admin
+
+# Générer les types depuis le schéma Payload
+pnpm generate:types
+
+# Les types seront automatiquement mis à jour dans packages/payload-client/src/types.ts
+```
+
+**Note:** Si vous avez besoin d'un nouveau type (Order, Cart, etc.), vous devez d'abord créer la collection dans Payload CMS, puis régénérer les types.
+
 ## 📱 Apps Spécifiques
 
 - **beautyswapp-app** : Voir [apps/beautyswapp-app/CLAUDE.md](apps/beautyswapp-app/CLAUDE.md) pour les règles Tamagui et Expo

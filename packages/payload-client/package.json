@@ -8,9 +8,7 @@
     "./client": "./src/client.ts",
     "./config": "./src/config.ts",
     "./utils": "./src/utils.ts",
-    "./hooks/useProducts": "./src/hooks/useProducts.ts",
-    "./hooks/useCategories": "./src/hooks/useCategories.ts",
-    "./hooks/useProductBySlug": "./src/hooks/useProductBySlug.ts"
+    "./hooks/*": "./src/hooks/*.ts"
   },
   "peerDependencies": {
     "@tanstack/react-query": "^5.90.20",
