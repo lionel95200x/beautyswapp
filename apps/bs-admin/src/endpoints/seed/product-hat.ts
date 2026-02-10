@@ -1,4 +1,4 @@
-import type { Category, Product, VariantOption, VariantType } from '@/payload-types'
+import type { Category, Product, User, VariantOption, VariantType } from '@/payload-types'
 import type { Media } from '@/payload-types'
 import { RequiredDataFromCollectionSlug } from 'payload'
 
@@ -8,6 +8,7 @@ type ProductArgs = {
   variantTypes: VariantType[]
   categories: Category[]
   relatedProducts: Product[]
+  seller: User
 }
 
 export const productHatData: (args: ProductArgs) => RequiredDataFromCollectionSlug<'products'> = ({
@@ -16,6 +17,7 @@ export const productHatData: (args: ProductArgs) => RequiredDataFromCollectionSl
   metaImage,
   variantTypes,
   categories,
+  seller,
 }) => {
   return {
     meta: {
@@ -37,7 +39,7 @@ export const productHatData: (args: ProductArgs) => RequiredDataFromCollectionSl
                 format: 0,
                 mode: 'normal',
                 style: '',
-                text: 'Top off your look with our classic hat, crafted for style and comfort. Made with breathable, high-quality materials and an adjustable strap for the perfect fit, it’s ideal for everyday wear or outdoor adventures. Available in a range of colors to match any outfit.',
+                text: "Top off your look with our classic hat, crafted for style and comfort. Made with breathable, high-quality materials and an adjustable strap for the perfect fit, it's ideal for everyday wear or outdoor adventures. Available in a range of colors to match any outfit.",
                 type: 'text',
                 version: 1,
               },
@@ -64,5 +66,6 @@ export const productHatData: (args: ProductArgs) => RequiredDataFromCollectionSl
     priceInUSDEnabled: true,
     priceInUSD: 2500,
     relatedProducts: relatedProducts,
+    seller: seller.id,
   }
 }

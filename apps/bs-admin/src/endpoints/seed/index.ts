@@ -246,6 +246,7 @@ export const seed = async ({
       variantTypes: [colorVariantType],
       categories: [hatsCategory],
       relatedProducts: [],
+      seller: customer,
     }),
   })
 
@@ -262,6 +263,7 @@ export const seed = async ({
       variantTypes: [colorVariantType, sizeVariantType],
       categories: [tshirtsCategory],
       relatedProducts: [productHat],
+      seller: customer,
     }),
   })
 

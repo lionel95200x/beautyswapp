@@ -3,20 +3,20 @@ import type { Brand } from '@beautyswapp/payload-client/types';
 
 interface ProductInfoProps {
   title: string;
-  brand?: Brand;
+  brand?: string;
   priceInUSD?: number | null;
 }
 
 export function ProductInfo({ title, brand, priceInUSD }: ProductInfoProps) {
   return (
-    <YStack flex={1} gap="$3">
-      <Heading size="$7" color="$color">
+    <YStack flex={1} gap="$1">
+      <Heading size="$4" color="$color">
         {title}
       </Heading>
 
-      {brand && brand.title && (
+      {brand && (
         <Text fontSize="$4" color="$gray10" fontWeight="600">
-          {brand.title}
+          {brand}
         </Text>
       )}
 

@@ -1,4 +1,4 @@
-import type { Category, Media, Product, VariantOption, VariantType } from '@/payload-types'
+import type { Category, Media, Product, User, VariantOption, VariantType } from '@/payload-types'
 import { RequiredDataFromCollectionSlug } from 'payload'
 
 type ProductArgs = {
@@ -8,6 +8,7 @@ type ProductArgs = {
   variantTypes: VariantType[]
   categories: Category[]
   relatedProducts: Product[]
+  seller: User
 }
 
 export const productTshirtData: (
@@ -19,6 +20,7 @@ export const productTshirtData: (
   contentImage,
   variantTypes,
   categories,
+  seller,
 }) => {
   return {
     enableVariants: true,
@@ -1172,6 +1174,7 @@ export const productTshirtData: (
     priceInUSDEnabled: true,
     priceInUSD: 4999,
     relatedProducts: relatedProducts,
+    seller: seller.id,
   }
 }
 

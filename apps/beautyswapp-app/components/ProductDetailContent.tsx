@@ -47,11 +47,6 @@ export function ProductDetailContent({ product }: ProductDetailContentProps) {
     [product.seller]
   );
 
-  const brand = useMemo<Brand | undefined>(
-    () => product.brands?.[0] ? getRelation<Brand>(product.brands[0]) : undefined,
-    [product.brands]
-  );
-
   const description = useMemo(
     () => extractTextFromRichText(product.description),
     [product.description]
@@ -94,6 +89,7 @@ export function ProductDetailContent({ product }: ProductDetailContentProps) {
     },
   ], [products, isLoadingProducts, errorProducts]);
 
+  console.log({ product })
   return (
     <>
       <Stack.Screen
@@ -115,7 +111,7 @@ export function ProductDetailContent({ product }: ProductDetailContentProps) {
               {/* Left Side - Product Info */}
               <ProductInfo
                 title={product.title}
-                brand={brand}
+                brand={product.brand?.name}
                 priceInUSD={product.priceInUSD}
               />
 

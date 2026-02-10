@@ -114,7 +114,7 @@ export interface Product {
   priceInUSD?: number | null
   seller: User
   categories?: (number | Category)[] | null
-  brands?: (number | Brand)[] | null
+  brands?: Brand
   slug: string
   updatedAt: string
   createdAt: string
