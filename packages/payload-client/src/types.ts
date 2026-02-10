@@ -8,6 +8,12 @@
  */
 
 // ====================================================================
+// RichText Types & Utils
+// ====================================================================
+export type { RichTextNode, RichTextRoot, RichTextField } from './types/richtext';
+export { extractTextFromRichText } from './types/richtext';
+
+// ====================================================================
 // Media
 // ====================================================================
 export interface Media {
@@ -45,6 +51,19 @@ export interface Media {
 // Category
 // ====================================================================
 export interface Category {
+  id: number
+  title: string
+  image?: (number | null) | Media
+  generateSlug?: boolean | null
+  slug: string
+  updatedAt: string
+  createdAt: string
+}
+
+// ====================================================================
+// Brand
+// ====================================================================
+export interface Brand {
   id: number
   title: string
   image?: (number | null) | Media
@@ -93,8 +112,9 @@ export interface Product {
   }[] | null
   inventory?: number | null
   priceInUSD?: number | null
-  seller: number | User
+  seller: User
   categories?: (number | Category)[] | null
+  brands?: (number | Brand)[] | null
   slug: string
   updatedAt: string
   createdAt: string

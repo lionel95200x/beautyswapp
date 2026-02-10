@@ -1,9 +1,10 @@
-import { YStack, Heading, Text, Button, ScrollView, Avatar, XStack } from 'tamagui';
+import { YStack, Heading } from 'tamagui';
 import { useRouter } from 'expo-router';
 import { PrimaryButton, SecondaryButton } from '@/components/ui/button';
 import { SplitBackgroundLayout } from '@/components/login/split-background-layout';
 import { useCurrentUser } from '@/hooks/useCurrentUser';
 import { useAuth } from '@/hooks/useAuth';
+import { UserAvatar } from '@/components/UserAvatar';
 
 export default function ProfileScreen() {
   const { signOut } = useAuth();
@@ -23,30 +24,7 @@ export default function ProfileScreen() {
           PROFIL
         </Heading>
 
-        <YStack alignItems="center" gap="$3" marginBottom="$4">
-          <Avatar circular size="$10" borderWidth={4} borderColor="$accent">
-            <Avatar.Image
-              src={
-                user?.metadata?.avatar_url
-                  ? { uri: user.metadata.avatar_url as string }
-                  : require('@/assets/images/user/avatar-mock.png')
-              }
-            />
-            <Avatar.Fallback background="$accent" />
-          </Avatar>
-
-          <YStack alignItems="center" gap="$1">
-            <Text fontSize="$5" fontWeight="bold" color="$color">
-              {user?.first_name} {user?.last_name}
-            </Text>
-            <Text fontSize="$4" color="$accent" fontWeight="600">
-              @{user?.metadata?.username}
-            </Text>
-            <Text fontSize="$3" color="$secondary">
-              {user?.email}
-            </Text>
-          </YStack>
-        </YStack>
+        <UserAvatar user={user} size="$10" showInfo={true} />
 
         <PrimaryButton>
           Mes Favoris

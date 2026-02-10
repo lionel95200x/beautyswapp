@@ -45,6 +45,13 @@ export async function getProducts(depth: number): Promise<PayloadProductsRespons
 }
 
 /**
+ * Récupère les produits d'un vendeur spécifique
+ */
+export async function getProductsBySeller(sellerId: number, depth: number): Promise<PayloadProductsResponse> {
+  return request<PayloadProductsResponse>(`/api/products?where[seller][equals]=${sellerId}&depth=${depth}`)
+}
+
+/**
  * Récupère un produit par son ID
  */
 export async function getProductById(id: string, depth: number): Promise<Product> {
