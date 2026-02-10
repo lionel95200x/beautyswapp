@@ -41,8 +41,10 @@ export default buildConfig({
   collections: [Users, Pages, Categories, Media, Brands],
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URL || '',
+      connectionString: process.env.DATABASE_URL,
     },
+    // Enable connection pooling for serverless (Vercel)
+    pooled: true,
   }),
   editor: lexicalEditor({
     features: () => {
