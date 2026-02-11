@@ -9,7 +9,8 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.beautyswapp.beautyswappapp"
     },
     "android": {
       "adaptiveIcon": {
@@ -19,7 +20,8 @@
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.beautyswapp.beautyswappapp"
     },
     "web": {
       "output": "static",
@@ -27,6 +29,13 @@
     },
     "plugins": [
       "expo-router",
+      [
+        "@stripe/stripe-react-native",
+        {
+          "merchantIdentifier": "merchant.com.beautyswapp.beautyswappapp",
+          "publishableKey": "pk_test_51SxmSTBRSyDzNNt6hoex1h7SdzAb1B0So83FcIRlOV1eIzgR5G6Swu0cwhWsBMsJVtae2yD41Utu755f2WcYqfz6005ghjFF0Y"
+        }
+      ],
       [
         "expo-splash-screen",
         {

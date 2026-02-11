@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { YStack, XStack, Text, ScrollView } from 'tamagui';
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import { useProductsBySeller } from '@beautyswapp/payload-client/hooks/useProducts';
 import { getMediaUrl } from '@beautyswapp/payload-client/utils';
 import { extractTextFromRichText } from '@beautyswapp/payload-client/types';
@@ -33,7 +33,8 @@ function getRelation<T>(value: T | number | null | undefined): T | undefined {
 }
 
 export function ProductDetailContent({ product }: ProductDetailContentProps) {
-  // Mémoisation des données extraites
+  const router = useRouter();
+
   const imageUrl = useMemo(() => {
     const firstImage = product.gallery?.[0]?.image;
     if (firstImage && typeof firstImage === 'object' && firstImage.url) {
@@ -133,7 +134,12 @@ export function ProductDetailContent({ product }: ProductDetailContentProps) {
 
             {/* Action Buttons */}
             <YStack gap="$3" flexDirection="row">
-              <PrimaryButton size="$5">
+              <PrimaryButton
+                size="$5"
+                onPress={() => {
+                  router.push(`/checkout?productId=${product.id}`)
+                }}
+              >
                 Acheter
               </PrimaryButton>
               <SecondaryButton>

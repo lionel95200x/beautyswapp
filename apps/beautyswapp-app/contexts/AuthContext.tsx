@@ -168,7 +168,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (loading) return
 
-    const loggedRoutes = ['(tabs)', 'products', 'vanity']
+    const loggedRoutes = ['(tabs)', 'products', 'vanity', 'checkout']
     const inAuthGroup = segments[0] === '(tabs)'
     const inLoggedRoute = loggedRoutes.includes(segments[0])
 
