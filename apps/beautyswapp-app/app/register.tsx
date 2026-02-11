@@ -5,7 +5,7 @@ export default function RegisterScreen() {
   return (
     <SplitBackgroundLayout
       topImage={require('@/assets/images/login/purple-login.jpg')}
-      overlayHeight="90%"
+      overlayHeight="80%"
     >
       <RegisterForm />
     </SplitBackgroundLayout>

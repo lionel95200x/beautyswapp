@@ -27,7 +27,6 @@ export function LoginForm() {
       onSubmit={handleLogin}
       submitText="Se connecter"
       loading={loading}
-      footerText="Pas encore de compte ?"
       footerLinkText="S'inscrire"
       footerLinkHref="/register"
     >

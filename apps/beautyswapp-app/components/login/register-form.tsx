@@ -24,12 +24,11 @@ export function RegisterForm() {
 
   return (
     <AuthLayout
-      title="Inscription"
+      title="Créez votre compte"
       subtitle="Rejoins la communauté Beautyswapp"
       onSubmit={handleRegister}
       submitText="S'inscrire"
       loading={loading}
-      footerText="Déjà un compte ?"
       footerLinkText="Se connecter"
       footerLinkHref="/login"
     >

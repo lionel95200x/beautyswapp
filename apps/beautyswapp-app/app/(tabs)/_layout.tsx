@@ -57,7 +57,7 @@ export default function TabLayout() {
   }
 
   if (!user) {
-    return <Redirect href="/login" />;
+    return <Redirect href="/welcome-login" />;
   }
 
   if (!isInTabs) {

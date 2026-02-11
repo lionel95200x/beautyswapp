@@ -10,6 +10,7 @@ const COMMON_BUTTON_PROPS = {
 
 export type PrimaryButtonProps = TamaguiButtonProps;
 export type SecondaryButtonProps = TamaguiButtonProps;
+export type TextButtonProps = TamaguiButtonProps;
 
 export function PrimaryButton(props: PrimaryButtonProps) {
   return (
@@ -28,6 +29,23 @@ export function SecondaryButton(props: SecondaryButtonProps) {
       backgroundColor="$orangeButton"
       color="$white"
       {...COMMON_BUTTON_PROPS}
+      {...props}
+    />
+  );
+}
+
+export function TextButton(props: TextButtonProps) {
+  return (
+    <TamaguiButton
+      backgroundColor="transparent"
+      color="$purpleText"
+      fontWeight="600"
+      size="$4"
+      paddingHorizontal="$0"
+      paddingVertical="$0"
+      pressStyle={{ opacity: 0.7 }}
+      hoverStyle={{ opacity: 0.8 }}
+      borderWidth={0}
       {...props}
     />
   );

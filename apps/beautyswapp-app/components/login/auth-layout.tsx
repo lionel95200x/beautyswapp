@@ -1,7 +1,8 @@
 import { YStack, Heading, Text, Image } from 'tamagui';
 import { ReactNode } from 'react';
-import { Link, Href } from 'expo-router';
-import { PrimaryButton } from '../ui/button';
+import { useRouter } from 'expo-router';
+import type { Href } from 'expo-router';
+import { PrimaryButton, TextButton } from '../ui/button';
 
 interface AuthLayoutProps {
   title: string;
@@ -10,7 +11,6 @@ interface AuthLayoutProps {
   submitText: string;
   loading: boolean;
   children: ReactNode;
-  footerText: string;
   footerLinkText: string;
   footerLinkHref: Href;
 }
@@ -22,10 +22,11 @@ export function AuthLayout({
   submitText,
   loading,
   children,
-  footerText,
   footerLinkText,
   footerLinkHref,
 }: AuthLayoutProps) {
+  const router = useRouter();
+
   return (
     <YStack p="$6" gap="$4" width="100%" maxW={400}>
       <YStack gap="$2" alignItems="center">
@@ -33,7 +34,6 @@ export function AuthLayout({
           src={require('@/assets/images/logo.png')}
           width={80}
           height={80}
-          marginBottom="$3"
         />
         <Heading size="$8" color="$purpleText" textAlign="center">
           {title}
@@ -54,14 +54,11 @@ export function AuthLayout({
         </PrimaryButton>
       </YStack>
 
-      <Text color="$gray10" fontSize="$3" textAlign="center">
-        {footerText}{' '}
-        <Link href={footerLinkHref} asChild>
-          <Text color="$primary" fontWeight="600">
-            {footerLinkText}
-          </Text>
-        </Link>
-      </Text>
+      <YStack alignItems="center">
+        <TextButton onPress={() => router.push(footerLinkHref)}>
+          {footerLinkText}
+        </TextButton>
+      </YStack>
     </YStack>
   );
 }
