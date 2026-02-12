@@ -1,7 +1,6 @@
 import { Banner } from '@payloadcms/ui'
 import React from 'react'
 
-import { SeedButton } from './SeedButton'
 import './index.scss'
 
 const baseClass = 'before-dashboard'
@@ -10,75 +9,41 @@ export const BeforeDashboard: React.FC = () => {
   return (
     <div className={baseClass}>
       <Banner className={`${baseClass}__banner`} type="success">
-        <h4>Welcome to your dashboard!</h4>
+        <h4>Bienvenue sur BeautySwapp Admin</h4>
       </Banner>
-      Here&apos;s what to do next:
+      <p>Tableau de bord de gestion de la marketplace BeautySwapp</p>
       <ul className={`${baseClass}__instructions`}>
         <li>
-          <SeedButton />
-          {' with a few products and pages to jump-start your new project, then '}
-          {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-          <a href="/">visit your website</a>
-          {' to see the results.'}
+          <strong>Produits soumis :</strong>
+          {' Vérifiez les nouveaux produits déposés par les vendeurs et créez les annonces correspondantes'}
         </li>
         <li>
-          {'Head over to '}
-          <a
-            href="https://dashboard.stripe.com/test/apikeys"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Stripe to obtain your API Keys
-          </a>
-          {
-            '. Create a new account if needed, then copy them into your environment variables and restart your server. See the '
-          }
-          <a
-            href="https://github.com/payloadcms/payload/blob/main/templates/ecommerce/README.md#stripe"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            README
-          </a>
-          {' for more details.'}
+          <strong>Validation vendeur :</strong>
+          {' Gérez les annonces en attente de validation par les vendeurs'}
         </li>
         <li>
-          {'Modify your '}
-          <a
-            href="https://payloadcms.com/docs/configuration/collections"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            collections
-          </a>
-          {' and add more '}
-          <a
-            href="https://payloadcms.com/docs/fields/overview"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            fields
-          </a>
-          {' as needed. If you are new to Payload, we also recommend you check out the '}
-          <a
-            href="https://payloadcms.com/docs/getting-started/what-is-payload"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Getting Started
-          </a>
-          {' docs.'}
+          <strong>Commandes :</strong>
+          {' Suivez les commandes, générez les étiquettes d\'expédition et mettez à jour les statuts'}
+        </li>
+        <li>
+          <strong>Paiements :</strong>
+          {' Surveillez les paiements Stripe et gérez la libération des fonds après confirmation de réception'}
+        </li>
+        <li>
+          <strong>Litiges :</strong>
+          {' Traitez les signalements et problèmes remontés par les utilisateurs'}
         </li>
       </ul>
-      {'Pro Tip: This block is a '}
-      <a
-        href="https://payloadcms.com/docs/admin/components#base-component-overrides"
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        custom component
-      </a>
-      , you can remove it at any time by updating your <strong>payload.config</strong>.
+      <p style={{ marginTop: '1rem', fontSize: '0.9rem', color: '#666' }}>
+        {'Configuration Stripe : '}
+        <a
+          href="https://dashboard.stripe.com/test/apikeys"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Gérer les clés API
+        </a>
+      </p>
     </div>
   )
 }

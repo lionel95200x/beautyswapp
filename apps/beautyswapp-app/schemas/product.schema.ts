@@ -12,6 +12,7 @@ export const createProductSchema = z.object({
       message: 'Le prix doit être un nombre positif'
     }),
   category: z.string().min(1, 'Sélectionnez une catégorie'),
+  brand: z.string().optional(),
   photos: z.array(z.string()).min(1, 'Ajoutez au moins une photo'),
 })
 

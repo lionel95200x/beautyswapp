@@ -1,20 +1,15 @@
 import { YStack, XStack, Card, Text } from 'tamagui';
+import { EmptyState } from './ui/EmptyState';
 import type { Order } from '@beautyswapp/payload-client/types';
 
 interface OrdersListProps {
   orders: Order[] | undefined;
-  emptyMessage?: string;
+  emptyMessage: string;
 }
 
 export function OrdersList({ orders, emptyMessage }: OrdersListProps) {
   if (!orders || orders.length === 0) {
-    return (
-      <YStack flex={1} ai="center" jc="center" padding="$4">
-        <Text color="$gray10" ta="center">
-          {emptyMessage}
-        </Text>
-      </YStack>
-    );
+    return <EmptyState message={emptyMessage} type="empty" />;
   }
 
 
