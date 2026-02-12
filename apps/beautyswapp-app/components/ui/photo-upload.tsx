@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { YStack, Heading, Text } from 'tamagui';
 import { TouchableOpacity, Alert, Image as RNImage, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
@@ -7,10 +7,17 @@ import { Ionicons } from '@expo/vector-icons';
 interface PhotoUploadProps {
   title: string;
   onPhotosChange: (photos: string[]) => void;
+  initialPhotos?: string[];
 }
 
-export function PhotoUpload({ title, onPhotosChange }: PhotoUploadProps) {
-  const [photos, setPhotos] = useState<string[]>([]);
+export function PhotoUpload({ title, onPhotosChange, initialPhotos }: PhotoUploadProps) {
+  const [photos, setPhotos] = useState<string[]>(initialPhotos || []);
+
+  useEffect(() => {
+    if (initialPhotos) {
+      setPhotos(initialPhotos);
+    }
+  }, [initialPhotos]);
 
   const pickImages = async () => {
     const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();

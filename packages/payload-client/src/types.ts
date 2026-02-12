@@ -65,10 +65,10 @@ export interface Category {
 // ====================================================================
 export interface Brand {
   id: number
-  title: string
-  image?: (number | null) | Media
-  generateSlug?: boolean | null
-  slug: string
+  name: string
+  logo?: (number | null) | Media
+  description?: string | null
+  slug?: string
   updatedAt: string
   createdAt: string
 }
@@ -114,7 +114,7 @@ export interface Product {
   priceInUSD?: number | null
   seller: User
   categories?: (number | Category)[] | null
-  brands?: Brand
+  brand?: (number | null) | Brand
   slug: string
   updatedAt: string
   createdAt: string
@@ -127,6 +127,18 @@ export interface Product {
 // ====================================================================
 export interface PayloadCategoriesResponse {
   docs: Category[]
+  totalDocs: number
+  limit: number
+  page: number
+  totalPages: number
+  hasPrevPage: boolean
+  hasNextPage: boolean
+  prevPage: number | null
+  nextPage: number | null
+}
+
+export interface PayloadBrandsResponse {
+  docs: Brand[]
   totalDocs: number
   limit: number
   page: number

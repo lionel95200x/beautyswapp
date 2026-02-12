@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { getProducts, getProductById, getProductsBySeller, uploadMedia, createProduct } from '../client'
+import { getProducts, getProductById, getProductsBySeller, uploadMedia, createProduct, updateProduct } from '../client'
 import type { UploadFile, CreateProductPayload } from '../upload-types'
 
 /**
@@ -53,6 +53,20 @@ export const useCreateProduct = () => {
 
   return useMutation({
     mutationFn: (data: CreateProductPayload) => createProduct(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['payload', 'products'] })
+    },
+  })
+}
+
+/**
+ * Hook pour mettre à jour un produit existant
+ */
+export const useUpdateProduct = () => {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: ({ id, data }: { id: string; data: Partial<CreateProductPayload> }) => updateProduct(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['payload', 'products'] })
     },

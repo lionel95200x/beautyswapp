@@ -116,6 +116,16 @@ export async function createProduct(data: CreateProductPayload): Promise<Product
 }
 
 /**
+ * Met à jour un produit existant
+ */
+export async function updateProduct(id: string, data: Partial<CreateProductPayload>): Promise<Product> {
+  return request<Product>(`/api/products/${id}`, {
+    method: 'PATCH',
+    body: JSON.stringify(data),
+  })
+}
+
+/**
  * Récupère les commandes d'un client spécifique
  */
 export async function getOrdersByCustomer(customerId: number, depth: number): Promise<PayloadOrdersResponse> {

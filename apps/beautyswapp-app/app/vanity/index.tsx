@@ -22,6 +22,10 @@ export default function VanityScreen() {
   const { data: ordersData, isLoading: ordersLoading, error: ordersError } = useOrdersByCustomer(user?.id as number);
   const orders = ordersData?.docs;
 
+  const handleEdit = (productId: number) => {
+    router.push(`/vanity/edit/${productId}`);
+  };
+
   const tabs = [
     {
       id: 'selling',
@@ -32,6 +36,7 @@ export default function VanityScreen() {
           isLoading={isLoading}
           error={error}
           emptyMessage="Aucun produit en vente"
+          onEdit={handleEdit}
         />
       ),
     },

@@ -1,6 +1,7 @@
-import { YStack, XStack, Text, ScrollView } from 'tamagui'
+import { YStack, XStack, ScrollView } from 'tamagui'
 import { ProductCard } from './ProductCard'
 import { ProductsGridSkeleton } from './ProductCardSkeleton'
+import { EmptyState } from './ui/EmptyState'
 import { Dimensions } from 'react-native'
 import type { Product } from '@beautyswapp/payload-client/types'
 
@@ -9,13 +10,15 @@ interface ProductsGridProps {
   isLoading?: boolean
   error?: Error | null
   emptyMessage?: string
+  onEdit?: (productId: number) => void
 }
 
 export function ProductsGrid({
   products,
   isLoading,
   error,
-  emptyMessage = 'Aucun produit disponible'
+  emptyMessage = 'Aucun produit disponible',
+  onEdit
 }: ProductsGridProps) {
   // Calculer la largeur des cartes (2 par ligne avec gap)
   const screenWidth = Dimensions.get('window').width
@@ -26,19 +29,11 @@ export function ProductsGrid({
   }
 
   if (error) {
-    return (
-      <YStack padding="$4" alignItems="center">
-        <Text color="$accent">Erreur: {error.message}</Text>
-      </YStack>
-    )
+    return <EmptyState message={`Erreur: ${error.message}`} type="error" />
   }
 
   if (!products || products.length === 0) {
-    return (
-      <YStack padding="$4" alignItems="center">
-        <Text color="$gray10">{emptyMessage}</Text>
-      </YStack>
-    )
+    return <EmptyState message={emptyMessage} type="empty" />
   }
 
   // Organiser les produits par paires (2 par ligne)
@@ -53,7 +48,7 @@ export function ProductsGrid({
         {productPairs.map((pair, pairIndex) => (
           <XStack key={pairIndex} gap="$4" justifyContent="space-between">
             {pair.map((product) => (
-              <ProductCard key={product.id} product={product} width={cardWidth} />
+              <ProductCard key={product.id} product={product} width={cardWidth} onEdit={onEdit} />
             ))}
             {/* Ajouter un espace vide si la ligne n'a qu'un produit */}
             {pair.length === 1 && <YStack width={cardWidth} />}

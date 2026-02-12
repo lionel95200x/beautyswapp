@@ -1,5 +1,6 @@
 import { YStack, Text, Image } from 'tamagui'
-import { Pressable } from 'react-native'
+import { Pressable, TouchableOpacity } from 'react-native'
+import Ionicons from '@expo/vector-icons/Ionicons'
 // @ts-ignore - expo-router types issue
 import { useRouter } from 'expo-router'
 import { getMediaUrl } from '@beautyswapp/payload-client/utils'
@@ -8,9 +9,10 @@ import type { Product, Category, Media } from '@beautyswapp/payload-client/types
 interface ProductCardProps {
   product: Product
   width?: number
+  onEdit?: (productId: number) => void
 }
 
-export function ProductCard({ product, width }: ProductCardProps) {
+export function ProductCard({ product, width, onEdit }: ProductCardProps) {
   // @ts-ignore - expo-router types issue
   const router = useRouter()
 
@@ -26,9 +28,32 @@ export function ProductCard({ product, width }: ProductCardProps) {
     router.push(`/products/${product.id}`)
   }
 
+  const handleEdit = (e: any) => {
+    e.stopPropagation()
+    if (onEdit) {
+      onEdit(product.id)
+    }
+  }
+
   return (
       <Pressable style={{ flex: 1 }} onPress={handlePress}>
-        <YStack gap="$2" width={width}>
+        <YStack gap="$2" width={width} position="relative">
+          {onEdit && (
+            <TouchableOpacity
+              onPress={handleEdit}
+              style={{
+                position: 'absolute',
+                top: 8,
+                right: 8,
+                zIndex: 10,
+                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                borderRadius: 20,
+                padding: 8,
+              }}
+            >
+              <Ionicons name="pencil" size={20} color="#8B5CF6" />
+            </TouchableOpacity>
+          )}
           <Image
             src={
               imageUrl

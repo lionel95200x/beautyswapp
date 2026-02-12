@@ -36,6 +36,7 @@ export interface CreateProductPayload {
   description: string;
   priceInUSD: number;
   categories: number[];
+  brand?: number;
   gallery: { image: number }[];
   seller: number;
   _status: 'draft' | 'published';
