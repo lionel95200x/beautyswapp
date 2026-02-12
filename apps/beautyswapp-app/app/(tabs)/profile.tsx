@@ -26,13 +26,13 @@ export default function ProfileScreen() {
 
         <UserAvatar user={user} size="$10" showInfo={true} />
 
-        <PrimaryButton>
-          Mes Favoris
-        </PrimaryButton>
-
         <PrimaryButton onPress={() => router.push('/vanity')}>
           Mon vanity
         </PrimaryButton>
+        <PrimaryButton>
+          Ma wishlist
+        </PrimaryButton>
+
 
         <SecondaryButton>
           Tout savoir sur BeautySwapp

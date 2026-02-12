@@ -10,9 +10,7 @@ export default function HomeScreen() {
       <YStack flex={1} padding="$4" >
         <YStack gap="$4" marginTop="$4">
           <Categories />
-          <PrimaryButton>
-            Commencer
-          </PrimaryButton>
+
           <FeaturedProducts />
 
           <ImageBanner
