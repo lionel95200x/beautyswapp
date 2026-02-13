@@ -1,6 +1,7 @@
-import { XStack, ScrollView, Text } from 'tamagui'
+import { XStack, ScrollView } from 'tamagui'
 import { SectionHeader } from './SectionHeader'
 import { ProductCard } from './ProductCard'
+import { EmptyState } from './ui/EmptyState'
 import { useProducts } from '@beautyswapp/payload-client/hooks/useProducts'
 
 export function FeaturedProducts() {
@@ -11,11 +12,11 @@ export function FeaturedProducts() {
   return (
     <SectionHeader title="EN VEDETTE" link={hasProducts ? '#' : undefined}>
       {isLoading ? (
-        <Text color="$gray10">Loading...</Text>
+        <EmptyState message="Loading..." type="loading" />
       ) : error ? (
-        <Text color="$accent">Erreur: {error.message}</Text>
+        <EmptyState message={`Erreur: ${error.message}`} type="error" />
       ) : !hasProducts ? (
-        <Text color="$gray10">Aucun produit disponible</Text>
+        <EmptyState message="Aucun produit disponible" type="empty" />
       ) : (
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <XStack gap="$3" paddingRight="$4">

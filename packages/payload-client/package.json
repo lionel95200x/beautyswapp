@@ -8,6 +8,7 @@
     "./client": "./src/client.ts",
     "./config": "./src/config.ts",
     "./utils": "./src/utils.ts",
+    "./payment-client": "./src/payment-client.ts",
     "./hooks/*": "./src/hooks/*.ts"
   },
   "peerDependencies": {

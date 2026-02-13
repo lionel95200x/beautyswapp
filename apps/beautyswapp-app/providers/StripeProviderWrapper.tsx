@@ -13,6 +13,17 @@ function MockStripeProvider({ children }: StripeProviderProps) {
 }
 
 // Export conditionnel : vrai StripeProvider ou mock
-export const StripeProviderWrapper = STRIPE_ENABLED
-  ? require('@stripe/stripe-react-native').StripeProvider
-  : MockStripeProvider
+let StripeProviderWrapper: React.ComponentType<StripeProviderProps>
+
+if (STRIPE_ENABLED) {
+  try {
+    StripeProviderWrapper = require('@stripe/stripe-react-native').StripeProvider
+  } catch (error) {
+    console.warn('Stripe package not available, using mock provider')
+    StripeProviderWrapper = MockStripeProvider
+  }
+} else {
+  StripeProviderWrapper = MockStripeProvider
+}
+
+export { StripeProviderWrapper }

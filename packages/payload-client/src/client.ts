@@ -1,5 +1,5 @@
 import { PAYLOAD_API_URL } from './config'
-import type { PayloadCategoriesResponse, PayloadProductsResponse, PayloadOrdersResponse, Product } from './types'
+import type { PayloadCategoriesResponse, PayloadBrandsResponse, PayloadProductsResponse, PayloadOrdersResponse, Product } from './types'
 import type {
   UploadFile,
   MediaUploadResponse,
@@ -78,6 +78,13 @@ export async function getProductBySlug(slug: string, depth: number): Promise<Pro
  */
 export async function getCategories(depth: number): Promise<PayloadCategoriesResponse> {
   return request<PayloadCategoriesResponse>(`/api/categories?depth=${depth}`)
+}
+
+/**
+ * Récupère toutes les marques (brands)
+ */
+export async function getBrands(depth: number): Promise<PayloadBrandsResponse> {
+  return request<PayloadBrandsResponse>(`/api/brands?depth=${depth}`)
 }
 
 /**

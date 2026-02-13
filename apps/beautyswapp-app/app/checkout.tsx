@@ -8,7 +8,7 @@ import { useAuthContext } from '@/contexts/AuthContext'
 import { authStorage } from '@/lib/secureStorage'
 import { PrimaryButton } from '@/components/ui/button'
 import { useStripePayment } from '@/hooks/useStripePayment'
-import { deleteCart } from '@beautyswapp/payload-client/payment-client'
+import { clearCart } from '@beautyswapp/payload-client/payment-client'
 
 export default function CheckoutScreen() {
   const { productId } = useLocalSearchParams<{ productId: string }>()
@@ -35,8 +35,9 @@ export default function CheckoutScreen() {
         })
 
         if (confirmResult && confirmResult.orderID) {
-          // Delete the cart after successful payment to force a new cart next time
-          await deleteCart({ cartId, token })
+          // Clear cart items after successful payment (like admin does)
+          // This empties the items but keeps the cart for reuse
+          await clearCart({ cartId, token })
 
           Alert.alert('Succès', `Commande ${confirmResult.orderID} confirmée !`)
           router.replace('/(tabs)')
