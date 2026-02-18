@@ -51,6 +51,14 @@
             "minSdkVersion": 25
           }
         }
+      ],
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "beautyswapp",
+          "organization": "naleo"
+        }
       ]
     ],
     "experiments": {
