@@ -20,8 +20,6 @@ export default function CreateScreen() {
   const { uploadPhotos, isUploading } = usePhotoUpload();
   const createProduct = useCreateProduct();
 
-  console.log('Categories:', categoriesData);
-  console.log('Brands:', brandsData);
   const form = useForm<CreateProductFormData>({
     resolver: zodResolver(createProductSchema),
     defaultValues: {
