@@ -1,5 +1,6 @@
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
 import { seoPlugin } from '@payloadcms/plugin-seo'
+import { s3Storage } from '@payloadcms/storage-s3'
 import { Plugin } from 'payload'
 import { GenerateTitle, GenerateURL } from '@payloadcms/plugin-seo/types'
 import { FixedToolbarFeature, HeadingFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
@@ -26,7 +27,34 @@ const generateURL: GenerateURL<Product | Page> = ({ doc }) => {
   return doc?.slug ? `${url}/${doc.slug}` : url
 }
 
+const s3Bucket = process.env.S3_BUCKET
+const s3AccessKeyId = process.env.S3_ACCESS_KEY_ID
+const s3SecretAccessKey = process.env.S3_SECRET_ACCESS_KEY
+const s3Region = process.env.S3_REGION
+const s3Endpoint = process.env.S3_ENDPOINT
+
+if (!s3Bucket || !s3AccessKeyId || !s3SecretAccessKey || !s3Region || !s3Endpoint) {
+  throw new Error(
+    'S3 configuration required: S3_BUCKET, S3_ACCESS_KEY_ID, S3_SECRET_ACCESS_KEY, S3_REGION, S3_ENDPOINT',
+  )
+}
+
 export const plugins: Plugin[] = [
+  s3Storage({
+    collections: {
+      media: true,
+    },
+    bucket: s3Bucket,
+    config: {
+      credentials: {
+        accessKeyId: s3AccessKeyId,
+        secretAccessKey: s3SecretAccessKey,
+      },
+      region: s3Region,
+      endpoint: s3Endpoint,
+      forcePathStyle: true,
+    },
+  }),
   seoPlugin({
     generateTitle,
     generateURL,
