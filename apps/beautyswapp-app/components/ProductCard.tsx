@@ -61,8 +61,9 @@ export function ProductCard({ product, width, onEdit }: ProductCardProps) {
                 : require('../assets/images/product/product-mock.png')
             }
             width="100%"
-            aspectRatio={1}
+            height={200}
             borderRadius={12}
+            objectFit="cover"
           />
           <YStack gap="$1">
             {firstCategory && (

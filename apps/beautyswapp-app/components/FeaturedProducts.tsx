@@ -21,7 +21,7 @@ export function FeaturedProducts() {
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <XStack gap="$3" paddingRight="$4">
             {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
+              <ProductCard key={product.id} product={product} width={150} />
             ))}
           </XStack>
         </ScrollView>
