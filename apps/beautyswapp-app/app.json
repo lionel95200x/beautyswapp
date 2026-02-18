@@ -43,7 +43,16 @@
             "backgroundColor": "#000000"
           }
         }
-      ]
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 25
+          }
+        }
+      ],
+      "@logrocket/react-native"
     ],
     "experiments": {
       "typedRoutes": true,

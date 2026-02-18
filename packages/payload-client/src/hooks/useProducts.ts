@@ -2,9 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { getProducts, getProductById, getProductsBySeller, uploadMedia, createProduct, updateProduct } from '../client'
 import type { UploadFile, CreateProductPayload } from '../upload-types'
 
-/**
- * Hook pour récupérer tous les produits Payload
- */
+
 export const useProducts = () => {
   return useQuery({
     queryKey: ['payload', 'products'],
@@ -12,9 +10,6 @@ export const useProducts = () => {
   })
 }
 
-/**
- * Hook pour récupérer les produits d'un vendeur spécifique
- */
 export const useProductsBySeller = (sellerId: number | undefined) => {
   return useQuery({
     queryKey: ['payload', 'products', 'seller', sellerId],
@@ -23,9 +18,6 @@ export const useProductsBySeller = (sellerId: number | undefined) => {
   })
 }
 
-/**
- * Hook pour récupérer un produit par son ID
- */
 export const useProduct = (id: string) => {
   return useQuery({
     queryKey: ['payload', 'product', id],
@@ -34,10 +26,6 @@ export const useProduct = (id: string) => {
   })
 }
 
-/**
- * Hook pour uploader un média
- * Accepte un objet File (web) ou un objet { uri, type, name } (React Native)
- */
 export const useUploadMedia = () => {
   return useMutation({
     mutationFn: ({ file, alt }: { file: UploadFile; alt: string }) =>
@@ -45,9 +33,6 @@ export const useUploadMedia = () => {
   })
 }
 
-/**
- * Hook pour créer un nouveau produit
- */
 export const useCreateProduct = () => {
   const queryClient = useQueryClient()
 
@@ -59,9 +44,6 @@ export const useCreateProduct = () => {
   })
 }
 
-/**
- * Hook pour mettre à jour un produit existant
- */
 export const useUpdateProduct = () => {
   const queryClient = useQueryClient()
 

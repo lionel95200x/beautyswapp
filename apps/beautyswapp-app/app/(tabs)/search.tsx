@@ -8,7 +8,7 @@ export default function SearchScreen() {
   const { data, isLoading, error } = useProducts();
 
   const filteredProducts = data?.docs?.filter((product) =>
-    product.title.toLowerCase().includes(searchQuery.toLowerCase())
+    product.title?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
