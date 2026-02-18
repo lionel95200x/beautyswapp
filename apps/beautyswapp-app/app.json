@@ -51,12 +51,10 @@
             "minSdkVersion": 25
           }
         }
-      ],
-      "@logrocket/react-native"
+      ]
     ],
     "experiments": {
-      "typedRoutes": true,
-      "reactCompiler": true
+      "typedRoutes": true
     },
     "extra": {
       "router": {},
