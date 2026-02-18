@@ -7,22 +7,15 @@
     "development": {
       "developmentClient": true,
       "distribution": "internal",
-      "env": {
-        "NODE_ENV": "development"
-      }
+      "environment": "development"
     },
     "preview": {
       "distribution": "internal",
-      "env": {
-        "NODE_ENV": "preview"
-      }
+      "environment": "preview"
     },
     "production": {
       "autoIncrement": true,
-      "env": {
-        "NODE_ENV": "production",
-        "EXPO_PUBLIC_STRIPE_ENABLED": "false"
-      }
+      "environment": "production"
     }
   },
   "submit": {
