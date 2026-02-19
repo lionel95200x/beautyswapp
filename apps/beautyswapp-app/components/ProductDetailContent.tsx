@@ -3,7 +3,7 @@ import { YStack, XStack, Text, ScrollView } from 'tamagui';
 import { Stack, useRouter } from 'expo-router';
 import { useProductsBySeller } from '@beautyswapp/payload-client/hooks/useProducts';
 import { getMediaUrl } from '@beautyswapp/payload-client/utils';
-import { extractTextFromRichText } from '@beautyswapp/payload-client/types';
+import { LexicalRichText } from '@/components/lexical/LexicalRichText';
 import { PrimaryButton, SecondaryButton } from '@/components/ui/button';
 import { Tabs } from '@/components/Tabs';
 import { ProductsGrid } from '@/components/ProductsGrid';
@@ -51,11 +51,6 @@ export function ProductDetailContent({ product }: ProductDetailContentProps) {
   const seller = useMemo<User | undefined>(
     () => getRelation<User>(product.seller),
     [product.seller]
-  );
-
-  const description = useMemo(
-    () => extractTextFromRichText(product.description),
-    [product.description]
   );
 
   const sellerId = useMemo(
@@ -126,14 +121,12 @@ export function ProductDetailContent({ product }: ProductDetailContentProps) {
             </XStack>
 
             {/* Description */}
-            {description && (
+            {product.description && (
               <YStack gap="$2">
                 <Text fontSize="$4" fontWeight="600" color="$secondary" textTransform="uppercase">
                   Description du produit
                 </Text>
-                <Text fontSize="$3" color="$gray10" lineHeight="$3">
-                  {description}
-                </Text>
+                <LexicalRichText richText={product.description as any} />
               </YStack>
             )}
 
@@ -147,9 +140,6 @@ export function ProductDetailContent({ product }: ProductDetailContentProps) {
               >
                 Acheter
               </PrimaryButton>
-              <SecondaryButton>
-                Message
-              </SecondaryButton>
             </YStack>
 
             <Text fontSize="$3" color="$purpleText" py="$2">

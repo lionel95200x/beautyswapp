@@ -11,7 +11,6 @@
 // RichText Types & Utils
 // ====================================================================
 export type { RichTextNode, RichTextRoot, RichTextField } from './types/richtext';
-export { extractTextFromRichText } from './types/richtext';
 
 // ====================================================================
 // Media
@@ -235,6 +234,35 @@ export interface Order {
 
 export interface PayloadOrdersResponse {
   docs: Order[]
+  totalDocs: number
+  limit: number
+  page: number
+  totalPages: number
+  hasPrevPage: boolean
+  hasNextPage: boolean
+  prevPage: number | null
+  nextPage: number | null
+}
+
+// ====================================================================
+// Page
+// ====================================================================
+export interface Page {
+  id: number
+  title: string
+  slug: string
+  publishedOn?: string | null
+  layout?: {
+    blockType: string
+    [k: string]: unknown
+  }[] | null
+  updatedAt: string
+  createdAt: string
+  _status?: ('draft' | 'published') | null
+}
+
+export interface PayloadPagesResponse {
+  docs: Page[]
   totalDocs: number
   limit: number
   page: number

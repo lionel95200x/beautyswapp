@@ -21,7 +21,7 @@ export function ProfileSubPageLayout({ title, children }: ProfileSubPageLayoutPr
         topImage={require('@/assets/images/login/purple-login.jpg')}
         overlayHeight="90%"
       >
-        <YStack flex={1} padding="$4" paddingTop="$8" gap="$4">
+        <YStack flex={1} p="$4" pt="$8" gap="$4">
           {/* @ts-ignore - Tamagui types issue */}
           <XStack position="relative" width="100%" alignItems="center" justifyContent="center">
             <TouchableOpacity

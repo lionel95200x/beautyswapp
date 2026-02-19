@@ -1,5 +1,5 @@
 import { PAYLOAD_API_URL } from './config'
-import type { PayloadCategoriesResponse, PayloadBrandsResponse, PayloadProductsResponse, PayloadOrdersResponse, Product } from './types'
+import type { PayloadCategoriesResponse, PayloadBrandsResponse, PayloadProductsResponse, PayloadOrdersResponse, PayloadPagesResponse, Product, Page } from './types'
 import type {
   UploadFile,
   MediaUploadResponse,
@@ -137,4 +137,19 @@ export async function updateProduct(id: string, data: Partial<CreateProductPaylo
  */
 export async function getOrdersByCustomer(customerId: number, depth: number): Promise<PayloadOrdersResponse> {
   return request<PayloadOrdersResponse>(`/api/orders?where[customer][equals]=${customerId}&depth=${depth}`)
+}
+
+/**
+ * Récupère une page par son slug
+ */
+export async function getPageBySlug(slug: string, depth: number): Promise<Page> {
+  const data = await request<PayloadPagesResponse>(
+    `/api/pages?where[slug][equals]=${slug}&depth=${depth}`
+  )
+
+  if (data.docs.length === 0) {
+    throw createPayloadError(404, 'Not Found', `Page not found: ${slug}`)
+  }
+
+  return data.docs[0]
 }
