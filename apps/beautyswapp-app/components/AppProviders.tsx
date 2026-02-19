@@ -20,6 +20,8 @@ export function AppProviders() {
           <PortalProvider shouldAddRootHost>
             <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
               <Stack screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="onboarding" options={{ headerShown: false }} />
+                <Stack.Screen name="aide" options={{ headerShown: false }} />
                 <Stack.Screen name="welcome-login" options={{ headerShown: false }} />
                 <Stack.Screen name="login" options={{ headerShown: false }} />
                 <Stack.Screen name="register" options={{ headerShown: false }} />

@@ -34,10 +34,10 @@ export default function ProfileScreen() {
         </PrimaryButton>
 
 
-        <SecondaryButton>
+        <SecondaryButton onPress={() => router.push('/onboarding')}>
           Tout savoir sur BeautySwapp
         </SecondaryButton>
-        <SecondaryButton>
+        <SecondaryButton onPress={() => router.push('/aide')}>
           Besoin d'aide ?
         </SecondaryButton>
         <SecondaryButton

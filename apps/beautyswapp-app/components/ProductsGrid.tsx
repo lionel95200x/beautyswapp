@@ -44,7 +44,7 @@ export function ProductsGrid({
 
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <YStack gap="$4" paddingHorizontal="$4" paddingBottom="$4">
+      <YStack gap="$4">
         {productPairs.map((pair, pairIndex) => (
           <XStack key={pairIndex} gap="$4" justifyContent="space-between">
             {pair.map((product) => (

@@ -79,6 +79,7 @@ export interface Brand {
 export interface User {
   id: number
   name?: string | null
+  profileImage?: Media | number | null
   roles?: ('admin' | 'customer')[] | null
   updatedAt: string
   createdAt: string

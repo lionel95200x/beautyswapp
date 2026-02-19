@@ -31,6 +31,11 @@ export const Users: CollectionConfig = {
       type: 'text',
     },
     {
+      name: 'profileImage',
+      type: 'upload',
+      relationTo: 'media',
+    },
+    {
       name: 'roles',
       type: 'select',
       access: {

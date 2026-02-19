@@ -1,5 +1,6 @@
 import { YStack, Text, Avatar } from 'tamagui'
-import type { User } from '@beautyswapp/payload-client/types'
+import type { User, Media } from '@beautyswapp/payload-client/types'
+import { getMediaUrl } from '@beautyswapp/payload-client/utils'
 
 interface UserAvatarProps {
   user: User | null | undefined
@@ -8,13 +9,18 @@ interface UserAvatarProps {
 }
 
 export function UserAvatar({ user, size = '$10', showInfo = true }: UserAvatarProps) {
+  const profileMedia = user?.profileImage && typeof user.profileImage === 'object'
+    ? user.profileImage as Media
+    : null
+  const avatarUrl = profileMedia?.url ? getMediaUrl(profileMedia.url) : null
+
   return (
-    <YStack ai="center" gap="$3" alignSelf="center">
+    <YStack alignItems="center" gap="$3" alignSelf="center">
       <Avatar circular size={size} borderWidth={4} borderColor="$accent">
         <Avatar.Image
           src={
-            user?.metadata?.avatar_url
-              ? { uri: user.metadata.avatar_url as string }
+            avatarUrl
+              ? { uri: avatarUrl }
               : require('@/assets/images/user/avatar-mock.png')
           }
         />
@@ -22,12 +28,9 @@ export function UserAvatar({ user, size = '$10', showInfo = true }: UserAvatarPr
       </Avatar>
 
       {showInfo && user && (
-        <YStack ai="center" gap="$1">
+        <YStack alignItems="center" gap="$1">
           <Text fontSize="$5" fontWeight="bold" color="$color">
-            {user.first_name} {user.last_name}
-          </Text>
-          <Text fontSize="$4" color="$accent" fontWeight="600">
-            @{user.metadata?.username}
+            {user.name}
           </Text>
           <Text fontSize="$3" color="$secondary">
             {user.email}

@@ -35,12 +35,17 @@ function getRelation<T>(value: T | number | null | undefined): T | undefined {
 export function ProductDetailContent({ product }: ProductDetailContentProps) {
   const router = useRouter();
 
-  const imageUrl = useMemo(() => {
-    const firstImage = product.gallery?.[0]?.image;
-    if (firstImage && typeof firstImage === 'object' && firstImage.url) {
-      return getMediaUrl(firstImage.url);
-    }
-    return null;
+  const images = useMemo(() => {
+    if (!product.gallery) return [];
+    return product.gallery
+      .map(item => {
+        const image = item.image;
+        if (image && typeof image === 'object' && image.url) {
+          return { url: getMediaUrl(image.url), alt: image.alt };
+        }
+        return null;
+      })
+      .filter((img): img is { url: string; alt: string } => img !== null);
   }, [product.gallery]);
 
   const seller = useMemo<User | undefined>(
@@ -102,7 +107,7 @@ export function ProductDetailContent({ product }: ProductDetailContentProps) {
       <ScrollView background="$background">
         <YStack flex={1}>
           {/* Product Image */}
-          <ProductImage imageUrl={imageUrl} productTitle={product.title} />
+          <ProductImage images={images} />
 
           {/* Product Info */}
           <YStack p="$4" gap="$4">

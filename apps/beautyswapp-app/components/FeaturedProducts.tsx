@@ -20,7 +20,7 @@ export function FeaturedProducts() {
         <EmptyState message="Aucun produit disponible" type="empty" />
       ) : (
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <XStack gap="$3" paddingRight="$4">
+          <XStack gap="$10" p="$4">
             {products.map((product) => (
               <ProductCard key={product.id} product={product} width={150} />
             ))}
