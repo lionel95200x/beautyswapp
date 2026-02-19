@@ -24,9 +24,6 @@ export default function CategoriesScreen() {
         onSearch={setSearchQuery}
         countLabel={filteredCategories ? `${filteredCategories.length} catégories` : undefined}
       >
-        <Button onPress={() => { Sentry.captureException(new Error('First error')) }} >
-          Trigger Sentry Error
-        </Button>
         <CategoryGrid
           categories={filteredCategories}
           isLoading={isLoading}

@@ -1,4 +1,4 @@
-import { YStack, XStack } from 'tamagui'
+import { YStack, XStack, ScrollView } from 'tamagui'
 import { useEffect, useRef } from 'react'
 import { Animated, Easing } from 'react-native'
 
@@ -72,6 +72,22 @@ export function ProductCardSkeleton({ width }: ProductCardSkeletonProps) {
         </Animated.View>
       </YStack>
     </YStack>
+  )
+}
+
+interface FeaturedProductsSkeletonProps {
+  count?: number
+}
+
+export function FeaturedProductsSkeleton({ count = 4 }: FeaturedProductsSkeletonProps) {
+  return (
+    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+      <XStack gap="$3" paddingRight="$4">
+        {Array.from({ length: count }).map((_, i) => (
+          <ProductCardSkeleton key={i} width={150} />
+        ))}
+      </XStack>
+    </ScrollView>
   )
 }
 

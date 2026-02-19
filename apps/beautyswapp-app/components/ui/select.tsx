@@ -1,4 +1,6 @@
 import { YStack, Heading, Select } from 'tamagui';
+import { Adapt } from '@tamagui/adapt';
+import { Sheet } from '@tamagui/sheet';
 import { Check, ChevronDown, ChevronUp } from '@tamagui/lucide-icons';
 
 interface SelectItem {
@@ -34,6 +36,15 @@ export function SelectField({ title, items, value, onValueChange, placeholder }:
         >
           <Select.Value placeholder={placeholder} />
         </Select.Trigger>
+
+        <Adapt when="maxMd" platform="touch">
+          <Sheet modal dismissOnSnapToBottom>
+            <Sheet.Frame>
+              <Adapt.Contents />
+            </Sheet.Frame>
+            <Sheet.Overlay />
+          </Sheet>
+        </Adapt>
 
         <Select.Content zIndex={200000}>
           <Select.ScrollUpButton>

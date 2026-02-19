@@ -10,7 +10,6 @@ export default function ProductDetailScreen() {
 
   const { data: product, isLoading, error } = useProduct(id);
 
-  // Show skeleton while loading
   if (isLoading) {
     return <ProductDetailSkeleton />;
   }

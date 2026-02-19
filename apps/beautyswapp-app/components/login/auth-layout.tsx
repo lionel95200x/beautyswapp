@@ -28,7 +28,7 @@ export function AuthLayout({
   const router = useRouter();
 
   return (
-    <YStack p="$6" gap="$4" width="100%" maxW={400}>
+    <YStack p="$6" gap="$4" >
       <YStack gap="$2" alignItems="center">
         <Image
           src={require('@/assets/images/logo.png')}

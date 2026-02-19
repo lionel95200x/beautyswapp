@@ -1,6 +1,7 @@
 import { YStack, XStack, ScrollView } from 'tamagui'
 import { Dimensions } from 'react-native'
 import { CategoryCard } from './CategoryCard'
+import { CategoryGridSkeleton } from './CategoryCardSkeleton'
 import { EmptyState } from './ui/EmptyState'
 import type { Category } from '@beautyswapp/payload-client/types'
 
@@ -15,11 +16,7 @@ export function CategoryGrid({ categories, isLoading, error }: CategoryGridProps
   const cardWidth = (screenWidth - 48) / 2
 
   if (isLoading) {
-    return (
-      <YStack flex={1} justifyContent="center" alignItems="center" paddingVertical="$8">
-        <EmptyState message="Chargement des catégories..." type="loading" />
-      </YStack>
-    )
+    return <CategoryGridSkeleton cardWidth={cardWidth} />
   }
 
   if (error) {

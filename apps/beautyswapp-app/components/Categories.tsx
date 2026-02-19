@@ -1,6 +1,7 @@
 import { YStack, Text, XStack, ScrollView, Image } from 'tamagui'
 import { useRouter } from 'expo-router'
 import { SectionHeader } from './SectionHeader'
+import { CategoriesHorizontalSkeleton } from './CategoryCardSkeleton'
 import { useCategories } from '@beautyswapp/payload-client/hooks/useCategories'
 import { getMediaUrl } from '@beautyswapp/payload-client/utils'
 import type { Media } from '@beautyswapp/payload-client/types'
@@ -22,7 +23,7 @@ export function Categories() {
       onLinkPress={hasCategories ? () => router.push('/categories') : undefined}
     >
       {isLoading ? (
-        <Text color="$gray10">Loading...</Text>
+        <CategoriesHorizontalSkeleton />
       ) : (
         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
           <XStack gap="$3" paddingRight="$4">
