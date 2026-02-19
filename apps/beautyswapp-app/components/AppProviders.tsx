@@ -19,16 +19,16 @@ export function AppProviders() {
         <TamaguiProvider config={config} defaultTheme="light">
           <PortalProvider shouldAddRootHost>
             <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-              <Stack>
+              <Stack screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="welcome-login" options={{ headerShown: false }} />
                 <Stack.Screen name="login" options={{ headerShown: false }} />
                 <Stack.Screen name="register" options={{ headerShown: false }} />
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen name="categories/index" options={{ title: 'Catégories' }} />
-                <Stack.Screen name="products/[id]" options={{ title: 'Produit' }} />
-                <Stack.Screen name="vanity/edit/[productId]/index" options={{ title: 'Modifier le produit' }} />
-                <Stack.Screen name="checkout" options={{ title: 'Paiement' }} />
-                <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+                <Stack.Screen name="categories/index" options={{ headerShown: false }} />
+                <Stack.Screen name="products/[id]" options={{ headerShown: false }} />
+                <Stack.Screen name="vanity/edit/[productId]/index" options={{ headerShown: false }} />
+                <Stack.Screen name="checkout" options={{ headerShown: false }} />
+                <Stack.Screen name="modal" options={{ headerShown: false, presentation: 'modal' }} />
               </Stack>
               <StatusBar style="auto" />
             </ThemeProvider>
