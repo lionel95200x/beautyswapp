@@ -3,7 +3,6 @@ import { NativeTabs, Icon, Label, VectorIcon } from 'expo-router/unstable-native
 import { Platform, ActivityIndicator, View } from 'react-native';
 import { Redirect, useSegments, Slot } from 'expo-router';
 import { useAuth } from '@/hooks/useAuth';
-import config from '@/tamagui.config';
 
 export default function TabLayout() {
   const { user, loading } = useAuth();
@@ -13,7 +12,7 @@ export default function TabLayout() {
 
   // Toujours appeler tous les hooks AVANT tout return conditionnel
   const content = (
-    <NativeTabs tintColor={config.themes.light.purpleText.val}>
+    <NativeTabs>
       <NativeTabs.Trigger name="index">
         <Label>Home</Label>
         {Platform.select({

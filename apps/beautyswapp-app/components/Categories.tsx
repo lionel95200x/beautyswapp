@@ -1,4 +1,5 @@
 import { YStack, Text, XStack, ScrollView, Image } from 'tamagui'
+import { useRouter } from 'expo-router'
 import { SectionHeader } from './SectionHeader'
 import { useCategories } from '@beautyswapp/payload-client/hooks/useCategories'
 import { getMediaUrl } from '@beautyswapp/payload-client/utils'
@@ -8,13 +9,18 @@ export function Categories() {
   const { data: categoriesData, isLoading } = useCategories()
   const categories = categoriesData?.docs
   const hasCategories = categories && categories.length > 0
+  const router = useRouter()
 
   if (!isLoading && !hasCategories) {
     return null
   }
 
   return (
-    <SectionHeader title="CATEGORIES" link={hasCategories ? '#' : undefined}>
+    <SectionHeader
+      title="CATEGORIES"
+      link={hasCategories ? '#' : undefined}
+      onLinkPress={hasCategories ? () => router.push('/categories') : undefined}
+    >
       {isLoading ? (
         <Text color="$gray10">Loading...</Text>
       ) : (
