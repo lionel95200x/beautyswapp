@@ -13,7 +13,7 @@ export const createProductSchema = z.object({
     }),
   category: z.string().min(1, 'Sélectionnez une catégorie'),
   brand: z.string().optional(),
-  photos: z.array(z.string()).min(1, 'Ajoutez au moins une photo'),
+  photos: z.array(z.string()).min(3, 'Ajoutez au moins 3 photos'),
 })
 
 export type CreateProductFormData = z.infer<typeof createProductSchema>

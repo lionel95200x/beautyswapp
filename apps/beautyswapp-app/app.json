@@ -12,7 +12,8 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.beautyswapp.app",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSCameraUsageDescription": "Beautyswapp a besoin d'accéder à votre caméra pour prendre des photos de vos produits."
       }
     },
     "android": {
@@ -32,6 +33,12 @@
     },
     "plugins": [
       "expo-router",
+      [
+        "expo-image-picker",
+        {
+          "cameraPermission": "Beautyswapp a besoin d'accéder à votre caméra pour prendre des photos de vos produits."
+        }
+      ],
       [
         "expo-splash-screen",
         {
